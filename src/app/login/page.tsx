@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   function handleSignIn() {
-    router.push("/onboarding");
+    router.push("/dashboard");
   }
 
   return (

@@ -9,7 +9,7 @@ function ConfettiDots() {
   const [dots, setDots] = useState<{ x: number; y: number; color: string; size: number; delay: number }[]>([]);
 
   useEffect(() => {
-    const colors = ["#00A651", "#2563EB", "#E63946", "#F59E0B", "#7C3AED", "#0D9488"];
+    const colors = ["#CC2229", "#1E7BC8", "#00A651", "#F59E0B", "#7C3AED", "#0D9488"];
     const generated = Array.from({ length: 30 }, () => ({
       x: Math.random() * 100,
       y: Math.random() * 100,

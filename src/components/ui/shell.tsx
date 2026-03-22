@@ -93,8 +93,8 @@ export function AppShell({ children, hideNav }: { children: React.ReactNode; hid
 
 export function ScreenContent({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`flex-1 overflow-y-auto overflow-x-hidden ${className || ""}`}>
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-6">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden">
+      <div className={`max-w-3xl mx-auto px-4 sm:px-6 pb-6 min-h-full ${className || ""}`}>
         {children}
       </div>
     </div>

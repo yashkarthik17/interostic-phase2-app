@@ -118,7 +118,7 @@ export default function CaseNotesPage({
       </ScreenContent>
 
       {/* Fixed Add Note Form */}
-      <div className="absolute bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-border px-4 py-3">
+      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-border px-4 py-3">
         <div className="flex gap-2">
           <input
             type="text"

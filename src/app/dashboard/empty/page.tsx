@@ -5,7 +5,7 @@ import {
   Button,
   Card,
 } from "@/components/ui/shell";
-import { BottomNav } from "@/components/ui/shell";
+
 import { Sparkles, Shield, ArrowRight } from "lucide-react";
 
 export default function EmptyDashboardPage() {
@@ -71,7 +71,6 @@ export default function EmptyDashboardPage() {
         </div>
       </ScreenContent>
 
-      <BottomNav />
     </AppShell>
   );
 }

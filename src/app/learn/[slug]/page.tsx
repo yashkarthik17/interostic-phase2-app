@@ -10,7 +10,7 @@ import {
   Card,
   Button,
 } from "@/components/ui/shell";
-import { BottomNav } from "@/components/ui/shell";
+
 import {
   Clock,
   ThumbsUp,
@@ -375,7 +375,6 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
             Back to Learn
           </Button>
         </ScreenContent>
-        <BottomNav />
       </AppShell>
     );
   }
@@ -555,7 +554,6 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
         )}
       </ScreenContent>
 
-      <BottomNav />
     </AppShell>
   );
 }

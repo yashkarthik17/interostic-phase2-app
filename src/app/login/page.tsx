@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Shield } from "lucide-react";
+import Image from "next/image";
 import { AppShell, ScreenContent, FormInput, Button } from "@/components/ui/shell";
 
 export default function LoginPage() {
@@ -19,38 +19,19 @@ export default function LoginPage() {
       <ScreenContent className="flex flex-col justify-center py-8">
         {/* Logo */}
         <div className="animate-fade-up delay-1 text-center mb-10">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-brand-green/10 rounded-2xl mb-4">
-            <Shield size={28} className="text-brand-green" />
-          </div>
-          <h1 className="text-2xl font-black text-navy tracking-tight">
-            Blast<span className="text-brand-green">Tax</span>
-          </h1>
+          <Image src="/logo.png" alt="BlastTax Debt" width={200} height={80} className="mx-auto h-16 w-auto mb-4" priority />
           <p className="text-sm text-muted mt-1">Sign in to continue</p>
         </div>
 
         {/* Form */}
         <div className="animate-fade-up delay-2 space-y-4 mb-6">
-          <FormInput
-            label="Email"
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={setEmail}
-          />
-          <FormInput
-            label="Password"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={setPassword}
-          />
+          <FormInput label="Email" type="email" placeholder="you@example.com" value={email} onChange={setEmail} />
+          <FormInput label="Password" type="password" placeholder="Enter your password" value={password} onChange={setPassword} />
         </div>
 
         {/* Forgot password */}
         <div className="animate-fade-up delay-3 text-right mb-6">
-          <Link href="/login/reset" className="text-xs font-semibold text-brand-blue hover:underline">
-            Forgot Password?
-          </Link>
+          <Link href="/login/reset" className="text-xs font-semibold text-brand-blue hover:underline">Forgot Password?</Link>
         </div>
 
         {/* Sign In button */}
@@ -80,9 +61,7 @@ export default function LoginPage() {
         {/* Create account link */}
         <p className="animate-fade-up delay-5 text-center text-sm text-muted">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="font-bold text-brand-blue hover:underline">
-            Create Account
-          </Link>
+          <Link href="/register" className="font-bold text-brand-blue hover:underline">Create Account</Link>
         </p>
       </ScreenContent>
     </AppShell>

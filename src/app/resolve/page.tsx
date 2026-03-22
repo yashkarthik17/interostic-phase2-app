@@ -6,7 +6,7 @@ import {
   ScreenContent,
   IconCircle,
 } from "@/components/ui/shell";
-import { BottomNav } from "@/components/ui/shell";
+
 import {
   BarChart3,
   FileText,
@@ -91,7 +91,6 @@ export default function ResolvePage() {
         ))}
       </ScreenContent>
 
-      <BottomNav />
     </AppShell>
   );
 }

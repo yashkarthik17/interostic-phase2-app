@@ -6,7 +6,7 @@ import {
   ScreenContent,
   IconCircle,
 } from "@/components/ui/shell";
-import { BottomNav } from "@/components/ui/shell";
+
 import {
   Briefcase,
   CreditCard,
@@ -187,7 +187,6 @@ export default function NotificationsPage() {
         )}
       </ScreenContent>
 
-      <BottomNav />
     </AppShell>
   );
 }

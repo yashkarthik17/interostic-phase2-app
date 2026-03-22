@@ -2,8 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "BlastTax - DIY Tax Resolution",
+  title: "BlastTax Debt - DIY Tax Resolution",
   description: "Resolve your tax debt with AI-powered guidance",
+  icons: { icon: "/logo.png" },
 };
 
 export const viewport: Viewport = {

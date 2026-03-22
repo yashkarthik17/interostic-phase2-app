@@ -8,7 +8,7 @@ import {
   IconCircle,
   Button,
 } from "@/components/ui/shell";
-import { BottomNav } from "@/components/ui/shell";
+import Image from "next/image";
 import { sampleCases, formatCurrency, defaultProfile } from "@/lib/store";
 import {
   Sparkles,
@@ -90,13 +90,16 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      {/* Custom header with greeting + notification bell */}
-      <header className="flex items-center justify-between px-6 pt-4 pb-2 bg-white shrink-0">
-        <div>
-          <p className="text-xs font-semibold text-muted">Welcome back</p>
-          <h1 className="text-lg font-bold text-navy">
-            {defaultProfile.firstName} {defaultProfile.lastName}
-          </h1>
+      {/* Custom header with logo + notification bell */}
+      <header className="flex items-center justify-between px-4 sm:px-6 pt-4 pb-2 bg-white border-b border-border shrink-0">
+        <div className="flex items-center gap-4">
+          <Image src="/logo.png" alt="BlastTax" width={120} height={40} className="md:hidden h-8 w-auto" />
+          <div>
+            <p className="text-xs font-semibold text-muted">Welcome back</p>
+            <h1 className="text-lg font-bold text-navy">
+              {defaultProfile.firstName} {defaultProfile.lastName}
+            </h1>
+          </div>
         </div>
         <Link
           href="/notifications"
@@ -113,8 +116,8 @@ export default function DashboardPage() {
           <div className="relative overflow-hidden rounded-2xl bg-navy p-6">
             {/* Decorative circles */}
             <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/5" />
-            <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-brand-green/10" />
-            <div className="absolute top-4 right-12 w-16 h-16 rounded-full bg-brand-blue/10" />
+            <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-brand-red/10" />
+            <div className="absolute top-4 right-12 w-16 h-16 rounded-full bg-brand-blue/15" />
 
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
@@ -242,8 +245,6 @@ export default function DashboardPage() {
           </Card>
         </div>
       </ScreenContent>
-
-      <BottomNav />
     </AppShell>
   );
 }

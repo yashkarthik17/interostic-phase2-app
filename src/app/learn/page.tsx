@@ -7,7 +7,7 @@ import {
   ScreenContent,
   Badge,
 } from "@/components/ui/shell";
-import { BottomNav } from "@/components/ui/shell";
+
 import { Search, Clock, ChevronRight } from "lucide-react";
 
 interface Article {
@@ -182,7 +182,6 @@ export default function LearnPage() {
         )}
       </ScreenContent>
 
-      <BottomNav />
     </AppShell>
   );
 }

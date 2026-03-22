@@ -8,7 +8,7 @@ import {
   Badge,
   Button,
 } from "@/components/ui/shell";
-import { BottomNav } from "@/components/ui/shell";
+
 import {
   Upload,
   Camera,
@@ -203,7 +203,6 @@ export default function NoticeDecoderPage() {
         )}
       </ScreenContent>
 
-      <BottomNav />
     </AppShell>
   );
 }

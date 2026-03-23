@@ -2,11 +2,12 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Mail } from "lucide-react";
-import { AppShell, ScreenContent, ScreenHeader, Button } from "@/components/ui/shell";
+import { AppShell, ScreenContent, ScreenHeader, Button, Card } from "@/components/ui/shell";
 
 export default function VerifyPage() {
   const router = useRouter();
   const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [loading, setLoading] = useState(false);
   const inputs = useRef<(HTMLInputElement | null)[]>([]);
 
   function handleChange(index: number, value: string) {
@@ -28,17 +29,36 @@ export default function VerifyPage() {
     }
   }
 
-  function handleVerify() {
-    router.push("/onboarding");
+  function handlePaste(e: React.ClipboardEvent) {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (!pasted) return;
+    const next = [...code];
+    for (let i = 0; i < pasted.length; i++) {
+      next[i] = pasted[i];
+    }
+    setCode(next);
+    const focusIdx = Math.min(pasted.length, 5);
+    inputs.current[focusIdx]?.focus();
   }
+
+  function handleVerify() {
+    setLoading(true);
+    setTimeout(() => {
+      router.push("/onboarding");
+    }, 600);
+  }
+
+  const allFilled = code.every((d) => d);
 
   return (
     <AppShell hideNav>
       <ScreenHeader title="Verify Email" backHref="/register" />
-      <ScreenContent className="py-4">
+      <ScreenContent className="py-4 sm:py-8">
         {/* Icon */}
         <div className="animate-fade-up delay-1 flex flex-col items-center text-center mb-10">
-          <div className="flex items-center justify-center w-16 h-16 bg-brand-blue/10 rounded-2xl mb-4">
+          <div className="flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
+            style={{ background: "linear-gradient(135deg, rgba(30,123,200,0.12) 0%, rgba(30,123,200,0.06) 100%)" }}>
             <Mail size={30} className="text-brand-blue" />
           </div>
           <h2 className="text-xl font-bold text-navy">Check Your Email</h2>
@@ -47,26 +67,35 @@ export default function VerifyPage() {
           </p>
         </div>
 
-        {/* Code inputs */}
-        <div className="animate-fade-up delay-2 flex justify-center gap-2.5 mb-8">
-          {code.map((digit, i) => (
-            <input
-              key={i}
-              ref={(el) => { inputs.current[i] = el; }}
-              type="text"
-              inputMode="numeric"
-              maxLength={1}
-              value={digit}
-              onChange={(e) => handleChange(i, e.target.value)}
-              onKeyDown={(e) => handleKeyDown(i, e)}
-              className="w-12 h-14 text-center text-xl font-bold text-navy bg-surface-alt border-[1.5px] border-border rounded-xl focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 transition-all"
-            />
-          ))}
+        {/* Code inputs in a card */}
+        <div className="animate-fade-up delay-2 mb-8">
+          <Card className="!p-6 sm:!p-8">
+            <p className="text-xs font-semibold text-muted uppercase tracking-wider mb-4 text-center">Enter verification code</p>
+            <div className="flex justify-center gap-2.5" onPaste={handlePaste}>
+              {code.map((digit, i) => (
+                <input
+                  key={i}
+                  ref={(el) => { inputs.current[i] = el; }}
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => handleChange(i, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(i, e)}
+                  className={`w-12 h-14 text-center text-xl font-bold text-navy bg-surface-alt border-[1.5px] rounded-xl transition-all duration-150 focus:outline-none ${
+                    digit
+                      ? "border-brand-blue bg-white shadow-[var(--shadow-glow-blue)]"
+                      : "border-border hover:border-border-strong focus:border-brand-blue focus:bg-white focus:ring-[3px] focus:ring-brand-blue/10"
+                  }`}
+                />
+              ))}
+            </div>
+          </Card>
         </div>
 
         {/* Verify button */}
         <div className="animate-fade-up delay-3 mb-6">
-          <Button onClick={handleVerify} disabled={code.some((d) => !d)}>
+          <Button onClick={handleVerify} loading={loading} disabled={!allFilled}>
             Verify Email
           </Button>
         </div>

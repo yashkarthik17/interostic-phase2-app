@@ -6,6 +6,7 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { FileText, ChevronRight, Search } from "lucide-react";
 import Link from "next/link";
@@ -138,6 +139,7 @@ export default function FormsPage() {
         </div>
 
         {/* Form Cards */}
+        <SectionHeader title="IRS Forms" subtitle="Complete these forms for your resolution" />
         <div className="space-y-3">
           {filtered.map((form, i) => (
             <div

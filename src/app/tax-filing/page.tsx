@@ -8,6 +8,8 @@ import {
   Badge,
   Button,
   IconCircle,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   FileText,
@@ -84,25 +86,15 @@ export default function TaxFilingPage() {
       <ScreenContent className="space-y-4 pt-1">
         {/* Info Card */}
         <div className="animate-fade-up delay-1">
-          <div className="flex items-start gap-3 px-4 py-3.5 bg-info-light rounded-2xl">
-            <Info size={18} className="text-info shrink-0 mt-0.5" />
-            <div>
-              <p className="text-xs font-bold text-info mb-0.5">
-                Filing Compliance
-              </p>
-              <p className="text-[0.6875rem] text-info/80 leading-relaxed">
-                Filing all outstanding returns is required before the IRS will
-                consider most resolution options. Let&apos;s get you current.
-              </p>
-            </div>
-          </div>
+          <ContextCard icon={Info} title="Filing Compliance" variant="blue">
+            Filing all outstanding returns is required before the IRS will
+            consider most resolution options. Let&apos;s get you current.
+          </ContextCard>
         </div>
 
         {/* Filing Status By Year */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Filing Status by Year
-          </p>
+          <SectionHeader title="Filing Status by Year" subtitle="Complete any unfiled returns to qualify for resolution" />
           <div className="space-y-3">
             {filingYears.map((fy, i) => {
               const config = statusConfig(fy.status);

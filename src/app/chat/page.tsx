@@ -101,7 +101,7 @@ export default function ChatPage() {
       {/* Messages area */}
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto px-4 pb-2 space-y-4"
+        className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-surface-alt"
       >
         {messages.map((msg, i) => (
           <div
@@ -112,15 +112,15 @@ export default function ChatPage() {
             style={{ animationDelay: `${i * 0.05}s` }}
           >
             {msg.role === "bot" && (
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-green-light shrink-0 mt-0.5">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-green-light shrink-0 mt-0.5 shadow-[var(--shadow-card)]">
                 <Bot size={16} className="text-brand-green" />
               </div>
             )}
             <div
-              className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+              className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-[var(--shadow-card)] ${
                 msg.role === "user"
-                  ? "bg-navy text-white rounded-br-md"
-                  : "bg-surface-alt text-navy rounded-bl-md"
+                  ? "bg-brand-blue text-white rounded-br-md"
+                  : "bg-white text-navy rounded-bl-md border border-border"
               }`}
             >
               {msg.content.split("\n").map((line, li) => (
@@ -130,8 +130,8 @@ export default function ChatPage() {
               ))}
             </div>
             {msg.role === "user" && (
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-navy-light shrink-0 mt-0.5">
-                <User size={16} className="text-navy" />
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-blue-50 shrink-0 mt-0.5 shadow-[var(--shadow-card)]">
+                <User size={16} className="text-brand-blue" />
               </div>
             )}
           </div>
@@ -139,13 +139,13 @@ export default function ChatPage() {
       </div>
 
       {/* Quick prompts */}
-      <div className="px-4 pb-2 shrink-0">
+      <div className="px-4 py-2 bg-white border-t border-border shrink-0">
         <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {quickPrompts.map((prompt) => (
             <button
               key={prompt}
               onClick={() => handlePrompt(prompt)}
-              className="whitespace-nowrap px-3.5 py-1.5 bg-surface-alt border border-border rounded-full text-xs font-semibold text-muted hover:border-brand-green hover:text-brand-green transition-colors shrink-0 active:scale-[0.97]"
+              className="whitespace-nowrap px-3.5 py-1.5 bg-white border border-border rounded-full text-xs font-semibold text-muted shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-brand-green hover:text-brand-green transition-all duration-200 shrink-0 active:scale-[0.97]"
             >
               {prompt}
             </button>
@@ -153,22 +153,23 @@ export default function ChatPage() {
         </div>
       </div>
 
-      {/* Input bar */}
-      <div className="flex items-center gap-2 px-4 pt-2 pb-5 bg-white border-t border-border shrink-0">
+      {/* Input bar — sticky at bottom with shadow */}
+      <div className="flex items-center gap-2 px-4 pt-2 pb-5 bg-white shrink-0"
+        style={{ boxShadow: "0 -4px 12px rgba(10,22,40,0.04)" }}>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask about your taxes..."
-          className="flex-1 px-4 py-3 bg-surface-alt border border-border rounded-full text-sm font-medium text-navy placeholder:text-placeholder focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/10 transition-all"
+          className="flex-1 px-4 py-3 bg-surface-alt border-[1.5px] border-border rounded-full text-sm font-medium text-navy placeholder:text-placeholder focus:border-brand-green focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-green/10 transition-all"
         />
         <button
           onClick={handleSend}
           disabled={!input.trim()}
           className={`flex items-center justify-center w-11 h-11 rounded-full transition-all duration-200 active:scale-[0.93] ${
             input.trim()
-              ? "bg-brand-green text-white shadow-sm hover:opacity-90"
+              ? "bg-brand-green text-white shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:brightness-110"
               : "bg-border text-placeholder"
           }`}
         >

@@ -5,6 +5,8 @@ import {
   ScreenHeader,
   ScreenContent,
   Card,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Search, ChevronDown, CheckCircle2, AlertTriangle, FileText, Info } from "lucide-react";
 

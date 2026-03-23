@@ -8,6 +8,9 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
+  StickyFooter,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   CheckCircle2,
@@ -185,8 +188,9 @@ export default function BusinessResolutionPlanPage() {
           </Card>
         </div>
 
-        {/* CTAs */}
-        <div className="animate-fade-up delay-3 space-y-3">
+      </ScreenContent>
+      <StickyFooter>
+        <div className="space-y-3">
           <Button href="/forms">
             <FileText size={16} />
             Begin Form 656 (Business)
@@ -196,7 +200,7 @@ export default function BusinessResolutionPlanPage() {
             Talk to Expert First
           </Button>
         </div>
-      </ScreenContent>
+      </StickyFooter>
     </AppShell>
   );
 }

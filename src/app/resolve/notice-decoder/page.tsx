@@ -5,8 +5,9 @@ import {
   ScreenHeader,
   ScreenContent,
   Card,
-  Badge,
   Button,
+  ContextCard,
+  SectionHeader,
 } from "@/components/ui/shell";
 
 import {
@@ -36,23 +37,23 @@ export default function NoticeDecoderPage() {
     <AppShell>
       <ScreenHeader title="Notice Decoder" backHref="/resolve" />
 
-      <ScreenContent className="space-y-4 pt-1">
+      <ScreenContent className="space-y-4 pt-2">
         <div className="animate-fade-up delay-1">
-          <p className="text-sm text-muted leading-relaxed">
+          <ContextCard icon={FileText} title="How it works" variant="warm">
             Upload or photograph an IRS notice and our AI will decode it,
             explaining what it means and what action you need to take.
-          </p>
+          </ContextCard>
         </div>
 
         {!uploaded ? (
           <>
-            {/* Upload zone */}
+            {/* Upload zone — warm dashed border */}
             <div className="animate-fade-up delay-2">
               <button
                 onClick={() => setUploaded(true)}
-                className="w-full flex flex-col items-center gap-3 p-8 border-2 border-dashed border-border-strong rounded-2xl bg-surface-alt hover:border-brand-blue hover:bg-navy-light/30 transition-all duration-200 active:scale-[0.99]"
+                className="w-full flex flex-col items-center gap-3 p-8 border-2 border-dashed border-brand-blue/30 rounded-2xl bg-brand-blue-50/40 hover:border-brand-blue/50 hover:bg-brand-blue-50 transition-all duration-200 active:scale-[0.99]"
               >
-                <div className="flex items-center justify-center w-14 h-14 bg-navy-light rounded-xl">
+                <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-brand-blue-50 to-brand-blue-light rounded-2xl shadow-[var(--shadow-card)]">
                   <Upload size={24} className="text-brand-blue" />
                 </div>
                 <div className="text-center">
@@ -78,26 +79,13 @@ export default function NoticeDecoderPage() {
               </Button>
             </div>
 
-            {/* Info hint */}
+            {/* Info hint as ContextCard */}
             <div className="animate-fade-up delay-4">
-              <Card className="!p-4 bg-surface-alt border-none">
-                <div className="flex items-start gap-3">
-                  <FileText
-                    size={18}
-                    className="text-muted shrink-0 mt-0.5"
-                  />
-                  <div>
-                    <p className="text-xs font-bold text-navy mb-0.5">
-                      What notices can we decode?
-                    </p>
-                    <p className="text-xs text-muted leading-relaxed">
-                      CP14, CP501, CP503, CP504, LT11, LT16, and most
-                      standard IRS correspondence. We identify the notice type,
-                      key amounts, deadlines, and required actions.
-                    </p>
-                  </div>
-                </div>
-              </Card>
+              <ContextCard icon={FileText} title="What notices can we decode?" variant="blue">
+                CP14, CP501, CP503, CP504, LT11, LT16, and most
+                standard IRS correspondence. We identify the notice type,
+                key amounts, deadlines, and required actions.
+              </ContextCard>
             </div>
           </>
         ) : (
@@ -114,7 +102,7 @@ export default function NoticeDecoderPage() {
 
                 {/* Key info grid */}
                 <div className="space-y-3 mb-4">
-                  <div className="flex items-start gap-3 p-3 bg-brand-red-light rounded-xl">
+                  <div className="flex items-start gap-3 p-3 bg-brand-red-light rounded-xl border border-brand-red/10">
                     <AlertTriangle
                       size={16}
                       className="text-brand-red shrink-0 mt-0.5"
@@ -129,7 +117,7 @@ export default function NoticeDecoderPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-3 bg-warning-light rounded-xl">
+                  <div className="flex items-start gap-3 p-3 bg-warning-light rounded-xl border border-warning/10">
                     <DollarSign
                       size={16}
                       className="text-warning shrink-0 mt-0.5"
@@ -144,7 +132,7 @@ export default function NoticeDecoderPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-3 bg-danger-light rounded-xl">
+                  <div className="flex items-start gap-3 p-3 bg-danger-light rounded-xl border border-danger/10">
                     <Calendar
                       size={16}
                       className="text-danger shrink-0 mt-0.5"
@@ -159,7 +147,7 @@ export default function NoticeDecoderPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-3 bg-info-light rounded-xl">
+                  <div className="flex items-start gap-3 p-3 bg-info-light rounded-xl border border-info/10">
                     <ClipboardList
                       size={16}
                       className="text-info shrink-0 mt-0.5"
@@ -175,7 +163,7 @@ export default function NoticeDecoderPage() {
                   </div>
                 </div>
 
-                {/* Summary */}
+                {/* Summary as ContextCard-style inside the card */}
                 <div className="pt-3 border-t border-border">
                   <p className="text-[0.6875rem] font-semibold text-muted uppercase tracking-wider mb-1.5">
                     Summary
@@ -202,7 +190,6 @@ export default function NoticeDecoderPage() {
           </>
         )}
       </ScreenContent>
-
     </AppShell>
   );
 }

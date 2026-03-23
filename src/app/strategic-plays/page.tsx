@@ -1,5 +1,5 @@
 "use client";
-import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button, SectionHeader, ContextCard } from "@/components/ui/shell";
 import { Lightbulb, Clock, DollarSign, TrendingDown, Shield, Zap, Star, ChevronRight } from "lucide-react";
 
 const strategies = [

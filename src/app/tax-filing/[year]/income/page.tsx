@@ -9,6 +9,7 @@ import {
   Card,
   Button,
   FormInput,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { Check } from "lucide-react";
 
@@ -113,12 +114,7 @@ export default function IncomePage({
 
       <ScreenContent className="space-y-4 pt-3">
         <div className="animate-fade-up delay-1">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-1">
-            Select Your Income Sources
-          </p>
-          <p className="text-xs text-muted mb-3">
-            Check all that apply for tax year {year}.
-          </p>
+          <SectionHeader title="Select Your Income Sources" subtitle={`Check all that apply for tax year ${year}`} accent="green" />
         </div>
 
         {/* Income Type Checkboxes */}

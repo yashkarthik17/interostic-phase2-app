@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { AppShell, ScreenHeader, ScreenContent, Card } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, SectionHeader } from "@/components/ui/shell";
 import { Search, ChevronDown, HelpCircle } from "lucide-react";
 
 interface FAQItem {

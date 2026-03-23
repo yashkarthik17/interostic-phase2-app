@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { AppShell, ScreenHeader, ScreenContent, Card, Button } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, Button, SectionHeader, ContextCard } from "@/components/ui/shell";
 import { Search, Building2, Shield, Eye, Lock, Check, ChevronRight } from "lucide-react";
 
 const popularBanks = [

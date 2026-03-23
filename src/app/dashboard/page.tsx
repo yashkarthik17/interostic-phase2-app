@@ -7,6 +7,8 @@ import {
   Badge,
   IconCircle,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import Image from "next/image";
 import { sampleCases, formatCurrency, defaultProfile } from "@/lib/store";
@@ -110,14 +112,15 @@ export default function DashboardPage() {
         </Link>
       </header>
 
-      <ScreenContent className="space-y-4 pt-2">
-        {/* Hero Card */}
+      <ScreenContent className="space-y-5 pt-2">
+        {/* Hero Card — warm navy gradient with brand color decorative circles */}
         <div className="animate-fade-up delay-1">
-          <div className="relative overflow-hidden rounded-2xl bg-navy p-6">
-            {/* Decorative circles */}
-            <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/5" />
-            <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-brand-red/10" />
-            <div className="absolute top-4 right-12 w-16 h-16 rounded-full bg-brand-blue/15" />
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-navy to-navy-dark p-6">
+            {/* Decorative circles — brand colors */}
+            <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-brand-blue/15" />
+            <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-brand-red/15" />
+            <div className="absolute top-4 right-12 w-16 h-16 rounded-full bg-brand-blue/10" />
+            <div className="absolute bottom-8 right-24 w-8 h-8 rounded-full bg-brand-red/10" />
 
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
@@ -141,15 +144,15 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Debt Overview Card */}
+        {/* Debt Overview Card — urgent red accent */}
         <div className="animate-fade-up delay-2">
-          <Card>
+          <Card className="!border-l-[3px] !border-l-brand-red">
             <div className="flex items-start justify-between mb-3">
               <div>
                 <p className="text-[0.6875rem] font-semibold text-muted uppercase tracking-wider mb-1">
                   Total Tax Debt
                 </p>
-                <p className="text-2xl font-black text-navy">
+                <p className="text-3xl font-black text-navy tracking-tight">
                   {formatCurrency(totalDebt)}
                 </p>
               </div>
@@ -175,15 +178,13 @@ export default function DashboardPage() {
 
         {/* Quick Actions Grid */}
         <div className="animate-fade-up delay-3">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Quick Actions
-          </p>
+          <SectionHeader title="Quick Actions" accent="blue" />
           <div className="grid grid-cols-2 gap-3">
             {quickActions.map(({ label, href, icon, color }) => (
               <Link
                 key={href}
                 href={href}
-                className="flex flex-col items-center gap-2.5 p-4 bg-white border border-border rounded-2xl transition-all duration-200 hover:border-border-strong hover:shadow-md hover:-translate-y-0.5 active:scale-[0.97]"
+                className="flex flex-col items-center gap-2.5 p-4 bg-white border border-border rounded-2xl shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[var(--shadow-card)] active:scale-[0.97]"
               >
                 <IconCircle icon={icon} color={color} size={44} />
                 <span className="text-xs font-bold text-navy">{label}</span>
@@ -194,9 +195,7 @@ export default function DashboardPage() {
 
         {/* Recent Activity */}
         <div className="animate-fade-up delay-4">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Recent Activity
-          </p>
+          <SectionHeader title="Recent Activity" accent="green" />
           <Card className="!p-0 divide-y divide-border">
             {recentActivity.map((item, i) => (
               <div key={i} className="flex items-center gap-3.5 px-5 py-3.5">
@@ -207,7 +206,8 @@ export default function DashboardPage() {
                   </p>
                   <p className="text-xs text-muted truncate">{item.subtitle}</p>
                 </div>
-                <span className="text-[0.625rem] font-semibold text-placeholder whitespace-nowrap">
+                <span className="flex items-center gap-1 text-[0.625rem] font-semibold text-placeholder whitespace-nowrap">
+                  <Clock size={10} />
                   {item.time}
                 </span>
               </div>
@@ -215,24 +215,16 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* AI Assistant Preview */}
+        {/* AI Assistant Preview — ContextCard with gradient */}
         <div className="animate-fade-up delay-5">
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <IconCircle icon={Bot} color="green" size={38} />
-              <div>
-                <p className="text-sm font-bold text-navy">AI Assistant</p>
-                <p className="text-xs text-muted">
-                  Ask anything about your taxes
-                </p>
-              </div>
-            </div>
+          <ContextCard icon={Bot} title="AI Assistant" variant="green">
+            <p className="mb-3">Ask anything about your tax situation, IRS notices, or resolution options.</p>
             <div className="flex flex-wrap gap-2 mb-3.5">
               {suggestedPrompts.map((prompt) => (
                 <Link
                   key={prompt}
                   href="/chat"
-                  className="px-3 py-1.5 bg-surface-alt border border-border rounded-full text-xs font-semibold text-muted hover:border-brand-green hover:text-brand-green transition-colors"
+                  className="px-3 py-1.5 bg-white/80 border border-brand-green/15 rounded-full text-xs font-semibold text-navy shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-brand-green/30 transition-all duration-200"
                 >
                   {prompt}
                 </Link>
@@ -242,7 +234,7 @@ export default function DashboardPage() {
               <MessageCircle size={16} />
               Open Chat
             </Button>
-          </Card>
+          </ContextCard>
         </div>
       </ScreenContent>
     </AppShell>

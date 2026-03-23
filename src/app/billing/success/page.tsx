@@ -12,7 +12,7 @@ export default function SuccessPage() {
     <AppShell hideNav>
       <ScreenContent className="flex flex-col items-center justify-center pt-8">
         {/* Checkmark with Confetti Dots */}
-        <div className="relative mb-8 animate-fade-up delay-1">
+        <div className="relative mb-8 animate-celebrate delay-1">
           {/* Confetti dots */}
           <div className="absolute -top-3 -left-4 w-2.5 h-2.5 rounded-full bg-brand-green" style={{ animation: "confettiFloat 2s ease-in-out infinite" }} />
           <div className="absolute -top-5 right-2 w-2 h-2 rounded-full bg-brand-blue" style={{ animation: "confettiFloat 2s ease-in-out infinite 0.3s" }} />

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { AlertTriangle, RotateCcw, ArrowLeft, MessageCircle } from "lucide-react";
-import { AppShell, ScreenContent, Button } from "@/components/ui/shell";
+import { AppShell, ScreenContent, EmptyState, Button } from "@/components/ui/shell";
 
 export default function AnalysisErrorPage() {
   const router = useRouter();
@@ -10,10 +10,10 @@ export default function AnalysisErrorPage() {
     <AppShell hideNav>
       <ScreenContent className="flex flex-col items-center justify-center min-h-full pt-12 pb-8">
         <div className="animate-fade-up flex flex-col items-center text-center">
-          {/* Icon */}
-          <div className="relative mb-6">
-            <div className="flex items-center justify-center w-20 h-20 bg-danger-light rounded-full">
-              <AlertTriangle size={36} className="text-danger" />
+          {/* EmptyState with red error icon */}
+          <div className="relative mb-5">
+            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-red-50 to-brand-red-light flex items-center justify-center">
+              <AlertTriangle size={32} className="text-brand-red" strokeWidth={1.5} />
             </div>
           </div>
 
@@ -24,11 +24,18 @@ export default function AnalysisErrorPage() {
           </p>
 
           {/* Error Detail */}
-          <div className="w-full bg-danger-light border border-danger/20 rounded-2xl p-4 mb-8">
-            <p className="text-xs font-semibold text-danger mb-1">Error Details</p>
-            <p className="text-xs text-danger/80 font-mono">
-              ANALYSIS_TIMEOUT: The analysis engine did not respond within the expected timeframe. (Code: AT-408)
-            </p>
+          <div className="w-full bg-gradient-to-br from-brand-red-50 to-brand-red-light/60 border border-brand-red/15 rounded-2xl p-4 mb-8">
+            <div className="flex gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0 bg-brand-red/10">
+                <AlertTriangle size={18} className="text-brand-red" />
+              </div>
+              <div className="flex-1 min-w-0 text-left">
+                <p className="text-sm font-bold text-navy mb-1">Error Details</p>
+                <p className="text-xs text-muted font-mono leading-relaxed">
+                  ANALYSIS_TIMEOUT: The analysis engine did not respond within the expected timeframe. (Code: AT-408)
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Actions */}

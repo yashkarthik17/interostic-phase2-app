@@ -5,6 +5,8 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { PauseCircle, CheckCircle2, Clock, AlertTriangle, Info } from "lucide-react";
 import { formatCurrency } from "@/lib/store";

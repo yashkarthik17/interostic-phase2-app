@@ -9,6 +9,7 @@ import {
   Card,
   Button,
   Badge,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { defaultProfile, formatCurrency } from "@/lib/store";
 import {
@@ -74,9 +75,7 @@ export default function ReviewPage({
       <ScreenContent className="space-y-4 pt-3">
         {/* Personal Info Summary */}
         <div className="animate-fade-up delay-1">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2">
-            Personal Information
-          </p>
+          <SectionHeader title="Personal Information" />
           <Card className="!p-4">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-8 rounded-lg bg-navy-light flex items-center justify-center">
@@ -103,9 +102,7 @@ export default function ReviewPage({
 
         {/* Income Summary */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2">
-            Income
-          </p>
+          <SectionHeader title="Income" accent="green" />
           <Card className="!p-4">
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
@@ -134,9 +131,7 @@ export default function ReviewPage({
 
         {/* Deductions Summary */}
         <div className="animate-fade-up delay-3">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2">
-            Deductions
-          </p>
+          <SectionHeader title="Deductions" />
           <Card className="!p-4">
             <div className="flex justify-between items-center">
               <div>
@@ -156,9 +151,7 @@ export default function ReviewPage({
 
         {/* Tax Calculation */}
         <div className="animate-fade-up delay-4">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2">
-            Tax Calculation
-          </p>
+          <SectionHeader title="Tax Calculation" accent="red" />
           <Card className="!p-4">
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
@@ -227,19 +220,10 @@ export default function ReviewPage({
         <div className="animate-fade-up delay-6 space-y-3 pb-2">
           <Button
             onClick={handleSubmit}
-            disabled={submitting}
+            loading={submitting}
           >
-            {submitting ? (
-              <>
-                <Loader2 size={16} className="animate-spin" />
-                Submitting...
-              </>
-            ) : (
-              <>
-                <FileText size={16} />
-                Submit Filing
-              </>
-            )}
+            <FileText size={16} />
+            Submit Filing
           </Button>
           <p className="text-[0.5625rem] text-center text-placeholder leading-relaxed">
             By submitting, you certify that the information provided is true

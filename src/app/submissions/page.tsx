@@ -6,9 +6,11 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  EmptyState,
 } from "@/components/ui/shell";
 import { sampleCases, formatCurrency } from "@/lib/store";
-import { ChevronRight, Inbox } from "lucide-react";
+import { ChevronRight, Inbox, FileText } from "lucide-react";
 
 interface SubmissionInfo {
   caseId: string;
@@ -88,23 +90,18 @@ export default function SubmissionsPage() {
 
       <ScreenContent className="space-y-4 pt-1">
         {submissions.length === 0 ? (
-          <div className="animate-fade-up delay-1 flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-surface-alt flex items-center justify-center mb-4">
-              <Inbox size={28} className="text-placeholder" />
-            </div>
-            <p className="text-sm font-bold text-navy mb-1">
-              No active submissions
-            </p>
-            <p className="text-xs text-muted max-w-[240px]">
-              When you submit a case to the IRS, you can track its progress
-              here.
-            </p>
-          </div>
+          <EmptyState
+            icon={FileText}
+            title="No active submissions"
+            description="When you submit a case to the IRS, you can track its progress here."
+            actionLabel="View Cases"
+            actionHref="/cases"
+          />
         ) : (
           <>
-            <p className="animate-fade-up delay-1 text-xs text-muted">
-              {submissions.length} active submission{submissions.length > 1 ? "s" : ""}
-            </p>
+            <div className="animate-fade-up delay-1">
+              <SectionHeader title="Active Submissions" subtitle={`${submissions.length} submission${submissions.length > 1 ? "s" : ""} in progress`} accent="green" />
+            </div>
 
             {submissions.map((sub, i) => (
               <Link

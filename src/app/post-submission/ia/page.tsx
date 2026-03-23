@@ -6,6 +6,8 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { CheckCircle2, Clock, DollarSign, AlertTriangle, Info, Calendar } from "lucide-react";
 import { formatCurrency } from "@/lib/store";

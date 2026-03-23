@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { AppShell, ScreenHeader, ScreenContent, Card } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, SectionHeader } from "@/components/ui/shell";
 import { Search, BookOpen } from "lucide-react";
 
 interface GlossaryTerm {

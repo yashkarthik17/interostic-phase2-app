@@ -8,6 +8,7 @@ import {
   Card,
   FormInput,
   Button,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { defaultProfile } from "@/lib/store";
 import { Camera } from "lucide-react";
@@ -64,10 +65,8 @@ export default function EditProfilePage() {
         </div>
 
         <div className="animate-fade-up delay-3">
+          <SectionHeader title="Address" />
           <Card>
-            <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-3">
-              Address
-            </p>
             <div className="space-y-4">
               <FormInput label="Street" value={street} onChange={setStreet} />
               <div className="grid grid-cols-3 gap-3">

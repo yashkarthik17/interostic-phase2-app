@@ -13,8 +13,8 @@ export default function FailedPage() {
       <ScreenContent className="flex flex-col items-center justify-center pt-8">
         {/* Red Alert Icon */}
         <div className="animate-fade-up delay-1 mb-6">
-          <div className="flex items-center justify-center w-20 h-20 rounded-full bg-danger-light">
-            <div className="flex items-center justify-center w-14 h-14 rounded-full bg-danger">
+          <div className="flex items-center justify-center w-20 h-20 rounded-full bg-brand-red-light shadow-[var(--shadow-glow-red)]">
+            <div className="flex items-center justify-center w-14 h-14 rounded-full bg-brand-red">
               <AlertCircle size={28} className="text-white" />
             </div>
           </div>

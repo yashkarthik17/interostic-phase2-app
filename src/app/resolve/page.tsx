@@ -4,6 +4,7 @@ import {
   AppShell,
   ScreenHeader,
   ScreenContent,
+  SectionHeader,
   IconCircle,
 } from "@/components/ui/shell";
 
@@ -67,16 +68,20 @@ export default function ResolvePage() {
     <AppShell>
       <ScreenHeader title="Resolution Center" />
 
-      <ScreenContent className="space-y-3 pt-1">
-        <p className="text-sm text-muted mb-1 animate-fade-up">
-          Tools and resources to help resolve your tax situation.
-        </p>
+      <ScreenContent className="space-y-4 pt-2">
+        <div className="animate-fade-up">
+          <SectionHeader
+            title="Resolution Tools"
+            subtitle="Tools and resources to help resolve your tax situation."
+            accent="blue"
+          />
+        </div>
 
         {actionCards.map((card, i) => (
           <Link
             key={card.href}
             href={card.href}
-            className="animate-fade-up flex items-center gap-4 p-4 bg-white border border-border rounded-2xl transition-all duration-200 hover:border-border-strong hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99]"
+            className="animate-fade-up flex items-center gap-4 p-4 bg-white border border-border rounded-2xl shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[var(--shadow-card)] active:scale-[0.99]"
             style={{ animationDelay: `${(i + 1) * 0.06}s` }}
           >
             <IconCircle icon={card.icon} color={card.color} size={46} />
@@ -90,7 +95,6 @@ export default function ResolvePage() {
           </Link>
         ))}
       </ScreenContent>
-
     </AppShell>
   );
 }

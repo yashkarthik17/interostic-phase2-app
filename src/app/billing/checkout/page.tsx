@@ -8,6 +8,8 @@ import {
   Card,
   FormInput,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Lock, Shield, Zap, Tag } from "lucide-react";
 
@@ -95,9 +97,12 @@ export default function CheckoutPage() {
         {/* Payment Form */}
         <div className="animate-fade-up delay-3">
           <Card>
-            <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-4">
-              Payment Details
-            </p>
+            <div className="flex items-center gap-2 mb-4">
+              <Lock size={14} className="text-brand-green" />
+              <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider">
+                Payment Details
+              </p>
+            </div>
 
             {/* Card Number */}
             <div className="mb-4">
@@ -163,19 +168,16 @@ export default function CheckoutPage() {
 
         {/* Security Badge */}
         <div className="animate-fade-up delay-4">
-          <div className="flex items-center justify-center gap-2 py-3">
-            <Lock size={13} className="text-muted" />
-            <span className="text-[0.6875rem] font-medium text-muted">
-              256-bit SSL encrypted &middot; Secure payment
-            </span>
-            <Shield size={13} className="text-muted" />
-          </div>
+          <ContextCard icon={Shield} title="Secure Checkout" variant="green">
+            Your payment is protected with 256-bit SSL encryption. We never store your full card number on our servers.
+          </ContextCard>
         </div>
 
         {/* Pay Button */}
         <div className="animate-fade-up delay-5">
           <Button onClick={handleSubmit}>
-            Pay {promoApplied ? "$44.10" : "$49.00"}
+            <Lock size={16} />
+            Pay {promoApplied ? "$44.10" : "$49.00"} Securely
           </Button>
           <p className="text-center text-[0.625rem] text-muted mt-3">
             By proceeding, you agree to our{" "}

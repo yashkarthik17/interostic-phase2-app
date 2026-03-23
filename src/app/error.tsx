@@ -13,8 +13,8 @@ export default function ErrorPage({
     <AppShell hideNav>
       <ScreenContent className="flex flex-col items-center justify-center text-center">
         {/* Error Icon */}
-        <div className="flex items-center justify-center w-20 h-20 rounded-full bg-warning-light mb-5">
-          <AlertTriangle size={36} className="text-warning" />
+        <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-red-50 to-brand-red-light flex items-center justify-center mb-5">
+          <AlertTriangle size={36} className="text-brand-red" strokeWidth={1.5} />
         </div>
 
         <h1 className="text-xl font-bold text-navy mb-2">Something Went Wrong</h1>

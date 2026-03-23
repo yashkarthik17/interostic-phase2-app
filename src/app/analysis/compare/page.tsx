@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Star, ArrowLeft, Phone } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, Badge, Button } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Badge, Button, SectionHeader, StickyFooter } from "@/components/ui/shell";
 import { getStore, formatCurrency, sampleResolutions } from "@/lib/store";
 
 interface ComparisonRow {
@@ -98,8 +98,7 @@ export default function ComparePage() {
       <ScreenContent>
         <div className="space-y-4 pt-2">
           <div className="animate-fade-up">
-            <h2 className="text-lg font-black text-navy mb-1">Side-by-Side Comparison</h2>
-            <p className="text-sm text-muted">Scroll right to see all options.</p>
+            <SectionHeader title="Side-by-Side Comparison" subtitle="Scroll right to see all options." accent="blue" />
           </div>
 
           {/* Table */}
@@ -112,7 +111,7 @@ export default function ComparePage() {
                     {options.map((o) => (
                       <th
                         key={o.id}
-                        className={`text-center py-3 px-2 ${o.recommended ? "bg-brand-green-light rounded-t-xl" : ""}`}
+                        className={`text-center py-3 px-2 ${o.recommended ? "bg-brand-blue-50 rounded-t-xl" : ""}`}
                       >
                         <div className="flex flex-col items-center gap-1">
                           <span className="text-sm font-black text-navy">{o.shortName}</span>
@@ -136,8 +135,8 @@ export default function ComparePage() {
                         <td
                           key={ci}
                           className={`text-center py-3 px-2 text-xs font-semibold text-navy ${
-                            options[ci].recommended && ri < rows.length - 1 ? "bg-brand-green-light/50" : ""
-                          } ${options[ci].recommended && ri === rows.length - 1 ? "bg-brand-green-light/50 rounded-b-xl" : ""}`}
+                            options[ci].recommended ? "bg-brand-blue-50/50" : ""
+                          } ${options[ci].recommended && ri === rows.length - 1 ? "rounded-b-xl" : ""}`}
                         >
                           {val}
                         </td>
@@ -149,17 +148,21 @@ export default function ComparePage() {
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="animate-fade-up delay-3 space-y-3 pt-2 pb-4">
-            <Button variant="outline" onClick={() => router.push("/analysis/results")}>
-              <ArrowLeft size={16} /> Back to Results
-            </Button>
-            <Button variant="secondary" onClick={() => router.push("/expert")}>
-              <Phone size={16} /> Talk to Expert
-            </Button>
-          </div>
+          {/* Spacer for sticky footer */}
+          <div className="h-4" />
         </div>
       </ScreenContent>
+
+      <StickyFooter>
+        <div className="space-y-3">
+          <Button variant="outline" onClick={() => router.push("/analysis/results")}>
+            <ArrowLeft size={16} /> Back to Results
+          </Button>
+          <Button variant="secondary" onClick={() => router.push("/expert")}>
+            <Phone size={16} /> Talk to Expert
+          </Button>
+        </div>
+      </StickyFooter>
     </AppShell>
   );
 }

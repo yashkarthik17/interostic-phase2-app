@@ -6,6 +6,8 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { UserCheck, ChevronDown, AlertTriangle, CheckCircle2, Shield, Info } from "lucide-react";
 
@@ -65,20 +67,12 @@ export default function RevenueOfficerPage() {
         </p>
 
         <div className="animate-fade-up delay-1">
-          <Card className="!bg-warning-light !border-transparent">
-            <div className="flex items-start gap-3">
-              <AlertTriangle size={18} className="text-amber-800 shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-bold text-amber-800">Get Representation Immediately</p>
-                <p className="text-xs text-amber-800/80 mt-1 leading-relaxed">
-                  If a Revenue Officer has been assigned to your case, hire a tax
-                  professional and file Form 2848 (Power of Attorney) as soon as
-                  possible. This ensures the RO communicates through your
-                  representative.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <ContextCard icon={AlertTriangle} title="Get Representation Immediately" variant="red">
+            If a Revenue Officer has been assigned to your case, hire a tax
+            professional and file Form 2848 (Power of Attorney) as soon as
+            possible. This ensures the RO communicates through your
+            representative.
+          </ContextCard>
         </div>
 
         <div className="animate-fade-up delay-2">

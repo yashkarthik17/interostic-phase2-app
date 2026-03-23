@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle, XCircle, AlertTriangle, Shield, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Card, Badge, Button } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Card, Badge, Button, ContextCard, StickyFooter } from "@/components/ui/shell";
 import { getStore } from "@/lib/store";
 
 interface FlagItem {
@@ -114,7 +114,11 @@ function FlagSection({ title, items, defaultOpen = true }: { title: string; item
         </div>
         {open ? <ChevronUp size={16} className="text-muted" /> : <ChevronDown size={16} className="text-muted" />}
       </button>
-      {open && (
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
         <div className="border-t border-border">
           {items.map((item, i) => (
             <div key={i} className={`flex items-start gap-3 px-4 py-3 ${i < items.length - 1 ? "border-b border-border" : ""}`}>
@@ -128,7 +132,7 @@ function FlagSection({ title, items, defaultOpen = true }: { title: string; item
             </div>
           ))}
         </div>
-      )}
+      </div>
     </Card>
   );
 }
@@ -156,19 +160,15 @@ export default function ScreeningPage() {
 
       <ScreenContent>
         <div className="space-y-4 pt-2">
-          {/* Summary */}
+          {/* Summary using ContextCard */}
           <div className="animate-fade-up">
-            <Card className={`!border-l-4 ${hasUrgent ? "!border-l-danger" : eligible ? "!border-l-brand-green" : "!border-l-warning"}`}>
-              <div className="flex items-start gap-3">
-                <Shield size={20} className={hasUrgent ? "text-danger" : eligible ? "text-brand-green" : "text-warning"} />
-                <div>
-                  <h3 className="text-sm font-bold text-navy mb-1">
-                    {hasUrgent ? "Urgent Action Needed" : eligible ? "Eligible for Resolution" : "Review Required"}
-                  </h3>
-                  <p className="text-xs text-muted leading-relaxed">{summary}</p>
-                </div>
-              </div>
-            </Card>
+            <ContextCard
+              icon={Shield}
+              title={hasUrgent ? "Urgent Action Needed" : eligible ? "Eligible for Resolution" : "Review Required"}
+              variant={hasUrgent ? "red" : eligible ? "green" : "warm"}
+            >
+              <p>{summary}</p>
+            </ContextCard>
           </div>
 
           {/* Sections */}
@@ -182,14 +182,16 @@ export default function ScreeningPage() {
             <FlagSection title="Special Circumstances" items={special} defaultOpen={false} />
           </div>
 
-          {/* Continue */}
-          <div className="animate-fade-up delay-4 pt-2 pb-4">
-            <Button onClick={() => router.push("/analysis/transcript")}>
-              Continue <ArrowRight size={16} />
-            </Button>
-          </div>
+          {/* Spacer for sticky footer */}
+          <div className="h-4" />
         </div>
       </ScreenContent>
+
+      <StickyFooter>
+        <Button onClick={() => router.push("/analysis/transcript")}>
+          Continue <ArrowRight size={16} />
+        </Button>
+      </StickyFooter>
     </AppShell>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { DollarSign, TrendingDown, ArrowRight, Info } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Card, Badge, Button } from "@/components/ui/shell";
+import { DollarSign, TrendingDown, ArrowRight, Info, Calculator } from "lucide-react";
+import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Card, Badge, Button, SectionHeader, ContextCard, StickyFooter } from "@/components/ui/shell";
 import { getStore, setStore, formatCurrency } from "@/lib/store";
 
 interface FinancialRow {
@@ -114,12 +114,7 @@ export default function FinancialsPage() {
         <div className="space-y-5 pt-2">
           {/* Monthly Income */}
           <div className="animate-fade-up">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="flex items-center justify-center w-8 h-8 bg-brand-green/10 rounded-lg">
-                <DollarSign size={16} className="text-brand-green" />
-              </div>
-              <h2 className="text-sm font-bold text-navy uppercase tracking-wider">Monthly Income</h2>
-            </div>
+            <SectionHeader title="Monthly Income" subtitle="Your total household income before deductions." accent="green" />
             <Card>
               <div className="space-y-4">
                 {incomeRows.map((row) => (
@@ -140,12 +135,7 @@ export default function FinancialsPage() {
 
           {/* Monthly Expenses */}
           <div className="animate-fade-up delay-2">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="flex items-center justify-center w-8 h-8 bg-danger/10 rounded-lg">
-                <TrendingDown size={16} className="text-danger" />
-              </div>
-              <h2 className="text-sm font-bold text-navy uppercase tracking-wider">Monthly Expenses</h2>
-            </div>
+            <SectionHeader title="Monthly Expenses" subtitle="The IRS compares your expenses to their National Standards." accent="red" />
             <Card>
               <div className="space-y-4">
                 {/* Header for allowable column */}
@@ -166,14 +156,17 @@ export default function FinancialsPage() {
                     {row.allowable && (expenses[row.key] || 0) > 0 && (
                       <div className="flex justify-end mt-1">
                         <span
-                          className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                          className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 ${
                             (expenses[row.key] || 0) <= row.allowable
                               ? "bg-brand-green-light text-brand-green"
-                              : "bg-warning-light text-amber-800"
+                              : "bg-warning-light text-warning"
                           }`}
                         >
-                          IRS allows {formatCurrency(row.allowable)}
-                          {(expenses[row.key] || 0) > row.allowable && ` (+${formatCurrency((expenses[row.key] || 0) - row.allowable)} over)`}
+                          {(expenses[row.key] || 0) <= row.allowable ? (
+                            <>Within IRS limit ({formatCurrency(row.allowable)})</>
+                          ) : (
+                            <>IRS allows {formatCurrency(row.allowable)} (+{formatCurrency((expenses[row.key] || 0) - row.allowable)} over)</>
+                          )}
                         </span>
                       </div>
                     )}
@@ -187,37 +180,40 @@ export default function FinancialsPage() {
             </Card>
           </div>
 
-          {/* MDI Card */}
+          {/* MDI Card - Prominent */}
           <div className="animate-fade-up delay-4">
-            <Card className={`!border-l-4 ${mdi > 0 ? "!border-l-brand-green" : "!border-l-brand-blue"}`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-semibold text-muted uppercase">Monthly Disposable Income</span>
-                  <p className={`text-2xl font-black mt-0.5 ${mdi > 0 ? "text-brand-green" : "text-brand-blue"}`}>
-                    {formatCurrency(Math.abs(mdi))}
-                    {mdi < 0 && <span className="text-xs font-semibold text-muted ml-1">(deficit)</span>}
-                  </p>
-                </div>
+            <ContextCard
+              icon={Calculator}
+              title="Monthly Disposable Income (MDI)"
+              variant={mdi > 0 ? "green" : "blue"}
+            >
+              <div className="flex items-center justify-between mt-2 mb-2">
+                <span className={`text-2xl font-black ${mdi > 0 ? "text-brand-green" : "text-brand-blue"}`}>
+                  {formatCurrency(Math.abs(mdi))}
+                  {mdi < 0 && <span className="text-xs font-semibold text-muted ml-1">(deficit)</span>}
+                </span>
                 <Badge variant={mdi > 0 ? "success" : mdi === 0 ? "warning" : "info"}>
                   {mdi > 0 ? "Positive" : mdi === 0 ? "Break Even" : "Negative"}
                 </Badge>
               </div>
-              <p className="text-xs text-muted mt-2 leading-relaxed">
+              <p>
                 {mdi > 0
                   ? "This amount factors into the IRS calculation for your Reasonable Collection Potential (RCP) and monthly payment amounts."
                   : "A negative MDI may qualify you for Currently Not Collectible (CNC) status or a reduced Offer in Compromise."}
               </p>
-            </Card>
+            </ContextCard>
           </div>
 
-          {/* Continue */}
-          <div className="animate-fade-up delay-5 pt-2 pb-4">
-            <Button onClick={() => router.push("/analysis/processing")}>
-              Analyze My Options <ArrowRight size={16} />
-            </Button>
-          </div>
+          {/* Spacer for sticky footer */}
+          <div className="h-4" />
         </div>
       </ScreenContent>
+
+      <StickyFooter>
+        <Button onClick={() => router.push("/analysis/processing")}>
+          Analyze My Options <ArrowRight size={16} />
+        </Button>
+      </StickyFooter>
     </AppShell>
   );
 }

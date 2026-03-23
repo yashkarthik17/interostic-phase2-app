@@ -8,6 +8,8 @@ import {
   Card,
   FormInput,
   Button,
+  ToggleSwitch,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Lock, Shield } from "lucide-react";
 
@@ -89,26 +91,16 @@ export default function AddMethodPage() {
             {/* Set as default toggle */}
             <div className="flex items-center justify-between mt-5 pt-4 border-t border-border">
               <span className="text-sm font-semibold text-navy">Set as default</span>
-              <button
-                type="button"
-                onClick={() => setSetAsDefault(!setAsDefault)}
-                className={`relative w-[46px] h-[26px] rounded-full transition-colors duration-200 ${setAsDefault ? "bg-brand-green" : "bg-border-strong"}`}
-              >
-                <div className={`absolute top-[3px] w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${setAsDefault ? "translate-x-[23px]" : "translate-x-[3px]"}`} />
-              </button>
+              <ToggleSwitch checked={setAsDefault} onChange={setSetAsDefault} />
             </div>
           </Card>
         </div>
 
         {/* Security Badge */}
         <div className="animate-fade-up delay-2">
-          <div className="flex items-center justify-center gap-2 py-3">
-            <Lock size={13} className="text-muted" />
-            <span className="text-[0.6875rem] font-medium text-muted">
-              256-bit SSL encrypted &middot; Secure storage
-            </span>
-            <Shield size={13} className="text-muted" />
-          </div>
+          <ContextCard icon={Shield} title="Secure Storage" variant="green">
+            Your card details are encrypted with 256-bit SSL and stored securely. We never see your full card number.
+          </ContextCard>
         </div>
 
         <div className="animate-fade-up delay-3">

@@ -1,5 +1,6 @@
 "use client";
-import { AppShell, ScreenContent, Button } from "@/components/ui/shell";
+import { AppShell, ScreenContent, Button, EmptyState } from "@/components/ui/shell";
+import { SearchX } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function NotFoundPage() {
@@ -8,13 +9,11 @@ export default function NotFoundPage() {
   return (
     <AppShell hideNav>
       <ScreenContent className="flex flex-col items-center justify-center text-center">
-        {/* Floating 404 */}
-        <div className="mb-6" style={{ animation: "float 3s ease-in-out infinite" }}>
-          <span className="text-[6rem] font-black text-navy/10 leading-none select-none">
-            404
-          </span>
+        <div className="relative mb-5">
+          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-red-50 to-brand-red-light flex items-center justify-center">
+            <SearchX size={32} className="text-brand-red" strokeWidth={1.5} />
+          </div>
         </div>
-
         <h1 className="text-xl font-bold text-navy mb-2">Page Not Found</h1>
         <p className="text-sm text-muted leading-relaxed max-w-xs mb-8">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
@@ -28,14 +27,6 @@ export default function NotFoundPage() {
             Go Back
           </Button>
         </div>
-
-        {/* Float animation */}
-        <style>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-          }
-        `}</style>
       </ScreenContent>
     </AppShell>
   );

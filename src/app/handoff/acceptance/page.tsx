@@ -4,10 +4,11 @@ import {
   AppShell,
   ScreenHeader,
   ScreenContent,
-  ProgressBar,
+  StepIndicator,
   Card,
   Button,
   Badge,
+  SectionHeader,
 } from "@/components/ui/shell";
 import {
   CheckCircle2,
@@ -112,11 +113,7 @@ export default function HandoffAcceptancePage() {
         title="Expert Handoff"
         backHref="/handoff/recommendation"
       />
-      <ProgressBar
-        value={100}
-        steps="Step 4 of 4"
-        label="Accept & Proceed"
-      />
+      <StepIndicator steps={["Documents", "Review", "Expert", "Accept"]} current={3} />
       <ScreenContent className="space-y-5 pt-3">
         {/* Final Strategy Summary */}
         <div className="animate-fade-up delay-1">

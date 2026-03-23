@@ -42,36 +42,38 @@ export default function AccountPage() {
       <ScreenContent className="space-y-4 pt-2">
         {/* Profile Card */}
         <div className="animate-fade-up delay-1">
-          <Card>
-            <div className="flex items-center gap-4">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-blue to-navy p-6 shadow-[var(--shadow-lift)]">
+            <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/5" />
+            <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-white/5" />
+            <div className="relative z-10 flex items-center gap-4">
               {/* Avatar */}
-              <div className="flex items-center justify-center w-14 h-14 rounded-full bg-navy text-white text-lg font-bold shrink-0">
+              <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white/15 text-white text-lg font-bold shrink-0 border border-white/20">
                 {initials}
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-base font-bold text-navy">
+                <h2 className="text-base font-bold text-white">
                   {profile.firstName} {profile.lastName}
                 </h2>
-                <p className="text-xs text-muted truncate">{profile.email}</p>
+                <p className="text-xs text-white/60 truncate">{profile.email}</p>
                 <div className="mt-1.5">
-                  <Badge variant="success">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[0.6875rem] font-bold bg-white/15 text-white border border-white/10">
                     <Zap size={10} />
                     Pro Plan
-                  </Badge>
+                  </span>
                 </div>
               </div>
             </div>
-          </Card>
+          </div>
         </div>
 
         {/* Menu Items */}
         <div className="animate-fade-up delay-2">
-          <Card className="!p-0 divide-y divide-border">
+          <div className="space-y-2">
             {menuItems.map(({ label, href, icon: Icon, color }) => (
               <Link
                 key={label}
                 href={href}
-                className="flex items-center gap-3.5 px-5 py-4 hover:bg-surface-alt transition-colors"
+                className="flex items-center gap-3.5 px-5 py-4 bg-white border border-border rounded-2xl shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0"
               >
                 <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-surface-alt">
                   <Icon size={17} className={color} />
@@ -80,7 +82,7 @@ export default function AccountPage() {
                 <ChevronRight size={16} className="text-placeholder" />
               </Link>
             ))}
-          </Card>
+          </div>
         </div>
 
         {/* Sign Out */}

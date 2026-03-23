@@ -5,6 +5,7 @@ import {
   ScreenHeader,
   ScreenContent,
   IconCircle,
+  SectionHeader,
 } from "@/components/ui/shell";
 import {
   Building2,
@@ -103,6 +104,7 @@ export default function SpecialtyPage() {
           These situations require specialized knowledge and a targeted approach.
           Select the topic that applies to you.
         </p>
+        <SectionHeader title="Select Your Situation" accent="blue" />
 
         {specialtyCards.map((card, i) => (
           <Link

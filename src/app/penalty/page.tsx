@@ -9,6 +9,8 @@ import {
   Badge,
   Button,
   IconCircle,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   AlertTriangle,
@@ -185,9 +187,7 @@ export default function PenaltyPage() {
 
         {/* More Strategies */}
         <div className="animate-fade-up delay-4">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Other Penalty Relief Strategies
-          </p>
+          <SectionHeader title="Other Penalty Relief Strategies" subtitle="Additional options based on your situation" />
           <div className="space-y-2.5">
             {strategyLinks.map((item) => (
               <Link

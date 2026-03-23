@@ -7,6 +7,8 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { XCircle, AlertTriangle, ChevronRight, Info, RefreshCw } from "lucide-react";
 

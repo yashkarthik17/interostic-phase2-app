@@ -2,15 +2,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { DollarSign, FileText, FolderOpen, AlertTriangle, HelpCircle } from "lucide-react";
-import { AppShell, ScreenContent, ScreenHeader, Card, Button } from "@/components/ui/shell";
+import { AppShell, ScreenContent, ScreenHeader, Card, Button, StickyFooter } from "@/components/ui/shell";
 import { setStore } from "@/lib/store";
 
 const options = [
-  { id: "back-taxes", icon: DollarSign, label: "I owe back taxes", color: "text-brand-red" },
-  { id: "irs-notice", icon: FileText, label: "I received an IRS notice", color: "text-brand-blue" },
-  { id: "file-returns", icon: FolderOpen, label: "I need to file returns", color: "text-violet" },
-  { id: "penalty-relief", icon: AlertTriangle, label: "I want penalty relief", color: "text-warning" },
-  { id: "other", icon: HelpCircle, label: "Other", color: "text-muted" },
+  { id: "back-taxes", icon: DollarSign, label: "I owe back taxes", color: "text-brand-red", bg: "bg-brand-red-light" },
+  { id: "irs-notice", icon: FileText, label: "I received an IRS notice", color: "text-brand-blue", bg: "bg-brand-blue-50" },
+  { id: "file-returns", icon: FolderOpen, label: "I need to file returns", color: "text-violet", bg: "bg-violet-light" },
+  { id: "penalty-relief", icon: AlertTriangle, label: "I want penalty relief", color: "text-warning", bg: "bg-warning-light" },
+  { id: "other", icon: HelpCircle, label: "Other", color: "text-muted", bg: "bg-surface-alt" },
 ];
 
 export default function SituationPage() {
@@ -41,10 +41,12 @@ export default function SituationPage() {
               <div key={opt.id} className={`animate-fade-up delay-${i + 2}`}>
                 <Card
                   onClick={() => setSelected(opt.id)}
-                  className={active ? "!border-brand-blue !shadow-md ring-[3px] ring-brand-blue/10" : ""}
+                  className={active
+                    ? "!border-brand-blue shadow-[var(--shadow-glow-blue)] ring-[3px] ring-brand-blue/10"
+                    : ""}
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`flex items-center justify-center w-10 h-10 rounded-xl bg-surface-alt ${opt.color}`}>
+                    <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${opt.bg} ${opt.color}`}>
                       <Icon size={20} />
                     </div>
                     <span className="text-sm font-semibold text-navy flex-1">{opt.label}</span>
@@ -65,13 +67,15 @@ export default function SituationPage() {
             );
           })}
         </div>
+      </ScreenContent>
 
+      <StickyFooter>
         <div className="animate-fade-up delay-6">
           <Button onClick={handleContinue} disabled={!selected}>
             Continue
           </Button>
         </div>
-      </ScreenContent>
+      </StickyFooter>
     </AppShell>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppShell, ScreenContent, ScreenHeader, ProgressBar, Card, Button } from "@/components/ui/shell";
+import { AppShell, ScreenContent, ScreenHeader, ProgressBar, Card, Button, StickyFooter } from "@/components/ui/shell";
 import { setStore } from "@/lib/store";
 
 const statuses = [
@@ -30,7 +30,7 @@ export default function FilingPage() {
   return (
     <AppShell hideNav>
       <ScreenHeader title="Tax Info" backHref="/onboarding/email" />
-      <ProgressBar value={50} steps="Step 4 of 8" />
+      <ProgressBar value={50} steps="Step 4 of 8" label="Filing Status" />
       <ScreenContent className="py-4">
         <div className="animate-fade-up delay-1 mb-6">
           <h2 className="text-xl font-bold text-navy">Filing Status</h2>
@@ -44,7 +44,9 @@ export default function FilingPage() {
               <div key={status.id} className={`animate-fade-up delay-${i + 2}`}>
                 <Card
                   onClick={() => setSelected(status.id)}
-                  className={active ? "!border-brand-blue !shadow-md ring-[3px] ring-brand-blue/10" : ""}
+                  className={active
+                    ? "!border-brand-blue shadow-[var(--shadow-glow-blue)] ring-[3px] ring-brand-blue/10"
+                    : ""}
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex-1">
@@ -68,13 +70,15 @@ export default function FilingPage() {
             );
           })}
         </div>
+      </ScreenContent>
 
+      <StickyFooter>
         <div className="animate-fade-up delay-6">
           <Button onClick={handleContinue} disabled={!selected}>
             Continue
           </Button>
         </div>
-      </ScreenContent>
+      </StickyFooter>
     </AppShell>
   );
 }

@@ -9,6 +9,8 @@ import {
   Badge,
   Button,
   IconCircle,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   sampleCases,
@@ -146,15 +148,13 @@ export default function CaseDetailPage({
 
         {/* Quick Actions */}
         <div className="animate-fade-up delay-3">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Quick Actions
-          </p>
+          <SectionHeader title="Quick Actions" subtitle="Common tasks for this case" accent="green" />
           <div className="grid grid-cols-4 gap-2">
             {quickActions.map(({ label, icon, color, href }) => (
               <Link
                 key={label}
                 href={href}
-                className="flex flex-col items-center gap-2 p-3 bg-white border border-border rounded-2xl transition-all duration-200 hover:border-border-strong hover:shadow-sm active:scale-[0.97]"
+                className="flex flex-col items-center gap-2 p-3 bg-white border border-border rounded-2xl shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]"
               >
                 <IconCircle icon={icon} color={color} size={36} />
                 <span className="text-[0.5625rem] font-bold text-navy text-center leading-tight">
@@ -167,9 +167,7 @@ export default function CaseDetailPage({
 
         {/* Timeline / Milestones */}
         <div className="animate-fade-up delay-4">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Timeline
-          </p>
+          <SectionHeader title="Timeline" subtitle="Case milestones and progress" accent="blue" />
           <Card className="!p-4">
             <div className="space-y-0">
               {milestones.map((m, i) => (
@@ -177,23 +175,23 @@ export default function CaseDetailPage({
                   {/* Vertical line + dot */}
                   <div className="flex flex-col items-center">
                     <div
-                      className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
+                      className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
                         m.status === "complete"
-                          ? "bg-brand-green-light"
+                          ? "bg-brand-green text-white shadow-[var(--shadow-glow-green)]"
                           : m.status === "current"
-                          ? "bg-brand-blue/10 ring-2 ring-brand-blue/30"
-                          : "bg-surface-alt"
+                          ? "bg-brand-blue text-white ring-[3px] ring-brand-blue/20 shadow-[var(--shadow-glow-blue)]"
+                          : "bg-border text-muted"
                       }`}
                     >
                       {m.status === "complete" ? (
                         <CheckCircle2
                           size={14}
-                          className="text-brand-green"
+                          className="text-white"
                         />
                       ) : m.status === "current" ? (
-                        <div className="w-2.5 h-2.5 rounded-full bg-brand-blue animate-pulse" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
                       ) : (
-                        <Clock size={12} className="text-placeholder" />
+                        <Clock size={12} className="text-muted-light" />
                       )}
                     </div>
                     {i < milestones.length - 1 && (
@@ -228,9 +226,7 @@ export default function CaseDetailPage({
 
         {/* Key Dates */}
         <div className="animate-fade-up delay-5">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Key Dates
-          </p>
+          <SectionHeader title="Key Dates" accent="red" />
           <Card className="!p-0 divide-y divide-border">
             {keyDates.map((d) => (
               <div

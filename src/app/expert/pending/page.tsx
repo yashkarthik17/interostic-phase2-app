@@ -6,6 +6,8 @@ import {
   ScreenContent,
   Card,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   Search,
@@ -51,11 +53,11 @@ export default function ExpertPendingPage() {
           <div className="flex flex-col items-center text-center py-6">
             {/* Animated search ring */}
             <div className="relative mb-5">
-              <div className="w-20 h-20 rounded-full bg-navy-light flex items-center justify-center">
-                <Search size={32} className="text-navy" />
+              <div className="w-20 h-20 rounded-full bg-brand-blue-50 flex items-center justify-center">
+                <Search size={32} className="text-brand-blue" />
               </div>
               <div
-                className="absolute inset-0 w-20 h-20 rounded-full border-[3px] border-transparent border-t-brand-green"
+                className="absolute inset-0 w-20 h-20 rounded-full border-[3px] border-transparent border-t-brand-blue"
                 style={{ animation: "spin 1.2s linear infinite" }}
               />
               <style jsx>{`
@@ -130,9 +132,7 @@ export default function ExpertPendingPage() {
 
         {/* What to Expect */}
         <div className="animate-fade-up delay-4">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            What to Expect
-          </p>
+          <SectionHeader title="What to Expect" subtitle="Your expert session includes" accent="blue" />
           <Card className="!p-0 divide-y divide-border">
             {expectations.map((item) => (
               <div key={item.title} className="flex items-start gap-3.5 px-5 py-4">

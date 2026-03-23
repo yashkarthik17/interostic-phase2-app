@@ -6,6 +6,8 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Globe, ChevronDown, AlertTriangle, CheckCircle2, DollarSign, Info } from "lucide-react";
 import { formatCurrency } from "@/lib/store";

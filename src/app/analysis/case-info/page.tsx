@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, ChevronDown, ChevronUp, FileText, Edit3, Trash2, ArrowRight, AlertCircle } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Card, Badge, Button, FormInput, ToggleSwitch } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Card, Badge, Button, FormInput, ToggleSwitch, SectionHeader, StickyFooter } from "@/components/ui/shell";
 import { getStore, setStore, formatCurrency, defaultAnalysis } from "@/lib/store";
 
 interface YearEntry {
@@ -93,19 +93,34 @@ export default function CaseInfoPage() {
       <ScreenContent>
         <div className="space-y-4 pt-2">
           <div className="animate-fade-up">
-            <h2 className="text-lg font-black text-navy mb-1">Year-by-Year Breakdown</h2>
-            <p className="text-sm text-muted">Review and confirm the tax debt for each year.</p>
+            <SectionHeader title="Year-by-Year Breakdown" subtitle="Review and confirm the tax debt for each year." accent="blue" />
+          </div>
+
+          {/* Total Debt - Prominent with red accent */}
+          <div className="animate-fade-up delay-1">
+            <div className="bg-gradient-to-r from-brand-red to-brand-red/90 rounded-2xl p-5 shadow-[var(--shadow-lift)]">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-semibold text-white/70 uppercase tracking-wider">Total Debt</span>
+                  <p className="text-3xl font-black text-white mt-0.5">{formatCurrency(totalDebt)}</p>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs font-semibold text-white/70 uppercase">Across</span>
+                  <p className="text-xl font-black text-white">{years.length} year{years.length !== 1 ? "s" : ""}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Year Cards */}
           {years.map((y, i) => (
-            <div key={y.year} className={`animate-fade-up delay-${Math.min(i + 1, 6)}`}>
+            <div key={y.year} className={`animate-fade-up delay-${Math.min(i + 2, 6)}`}>
               <Card className="!p-0 overflow-hidden">
                 <button
                   onClick={() => setExpandedYear(expandedYear === y.year ? null : y.year)}
                   className="w-full flex items-center gap-3 p-4 text-left"
                 >
-                  <div className="flex items-center justify-center w-11 h-11 bg-navy-light rounded-xl shrink-0">
+                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-navy-light to-surface-alt rounded-xl shrink-0 shadow-[var(--shadow-card)]">
                     <span className="text-sm font-black text-navy">{y.year}</span>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -132,18 +147,22 @@ export default function CaseInfoPage() {
                   )}
                 </button>
 
-                {expandedYear === y.year && (
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    expandedYear === y.year ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
                   <div className="border-t border-border px-4 py-3 bg-surface-alt space-y-3">
                     <div className="grid grid-cols-3 gap-3">
-                      <div>
+                      <div className="bg-white rounded-xl p-3 shadow-[var(--shadow-card)]">
                         <span className="text-[10px] font-semibold text-muted uppercase block mb-0.5">Tax</span>
                         <span className="text-sm font-bold text-navy">{formatCurrency(y.tax)}</span>
                       </div>
-                      <div>
+                      <div className="bg-white rounded-xl p-3 shadow-[var(--shadow-card)]">
                         <span className="text-[10px] font-semibold text-muted uppercase block mb-0.5">Penalty</span>
                         <span className="text-sm font-bold text-danger">{formatCurrency(y.penalty)}</span>
                       </div>
-                      <div>
+                      <div className="bg-white rounded-xl p-3 shadow-[var(--shadow-card)]">
                         <span className="text-[10px] font-semibold text-muted uppercase block mb-0.5">Interest</span>
                         <span className="text-sm font-bold text-warning">{formatCurrency(y.interest)}</span>
                       </div>
@@ -159,7 +178,7 @@ export default function CaseInfoPage() {
                       </button>
                     </div>
                   </div>
-                )}
+                </div>
               </Card>
             </div>
           ))}
@@ -192,30 +211,16 @@ export default function CaseInfoPage() {
             </button>
           )}
 
-          {/* Total */}
-          <div className="animate-fade-up delay-5">
-            <Card className="!bg-navy">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-semibold text-white/60 uppercase">Total Debt</span>
-                  <p className="text-2xl font-black text-white mt-0.5">{formatCurrency(totalDebt)}</p>
-                </div>
-                <div className="text-right">
-                  <span className="text-xs font-semibold text-white/60">Across</span>
-                  <p className="text-lg font-black text-white">{years.length} year{years.length !== 1 ? "s" : ""}</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Continue */}
-          <div className="animate-fade-up delay-6 pt-2 pb-4">
-            <Button onClick={() => router.push("/analysis/assets")}>
-              Continue <ArrowRight size={16} />
-            </Button>
-          </div>
+          {/* Spacer for sticky footer */}
+          <div className="h-4" />
         </div>
       </ScreenContent>
+
+      <StickyFooter>
+        <Button onClick={() => router.push("/analysis/assets")}>
+          Continue <ArrowRight size={16} />
+        </Button>
+      </StickyFooter>
     </AppShell>
   );
 }

@@ -29,19 +29,23 @@ export default function DeleteAccountPage() {
       <ScreenContent className="space-y-4 pt-2">
         {/* Warning Card */}
         <div className="animate-fade-up delay-1">
-          <div className="rounded-2xl border-[1.5px] border-danger bg-danger-light p-5">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-danger/10">
-                <AlertTriangle size={20} className="text-danger" />
-              </div>
-              <div>
-                <h3 className="text-base font-bold text-danger">Danger Zone</h3>
-                <p className="text-xs text-danger/70">This action cannot be undone</p>
+          <div className="rounded-2xl border-[1.5px] border-brand-red overflow-hidden shadow-[var(--shadow-glow-red)]">
+            <div className="bg-gradient-to-r from-brand-red to-brand-red/80 px-5 py-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/15">
+                  <AlertTriangle size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white">Danger Zone</h3>
+                  <p className="text-xs text-white/70">This action cannot be undone</p>
+                </div>
               </div>
             </div>
-            <p className="text-sm text-danger/80 leading-relaxed">
-              Deleting your account will permanently remove all your data, including tax analyses, documents, case files, and chat history. This action is irreversible.
-            </p>
+            <div className="bg-brand-red-light px-5 py-4">
+              <p className="text-sm text-brand-red leading-relaxed font-medium">
+                Deleting your account will permanently remove all your data, including tax analyses, documents, case files, and chat history. This action is irreversible.
+              </p>
+            </div>
           </div>
         </div>
 

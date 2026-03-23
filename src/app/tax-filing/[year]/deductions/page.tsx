@@ -10,6 +10,8 @@ import {
   Button,
   FormInput,
   ToggleSwitch,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { formatCurrency } from "@/lib/store";
 import { DollarSign, Info } from "lucide-react";
@@ -109,26 +111,16 @@ export default function DeductionsPage({
         {/* Standard info or itemized fields */}
         {!useItemized ? (
           <div className="animate-fade-up delay-2">
-            <div className="flex items-start gap-3 px-4 py-3.5 bg-info-light rounded-2xl">
-              <Info size={16} className="text-info shrink-0 mt-0.5" />
-              <div>
-                <p className="text-xs font-bold text-info mb-0.5">
-                  Standard Deduction
-                </p>
-                <p className="text-[0.6875rem] text-info/80 leading-relaxed">
-                  For {year}, the standard deduction for single filers is{" "}
-                  {formatCurrency(standardDeductionAmount)}. This is automatically
-                  applied. Choose itemized only if your deductions exceed this
-                  amount.
-                </p>
-              </div>
-            </div>
+            <ContextCard icon={Info} title="Standard Deduction" variant="blue">
+              For {year}, the standard deduction for single filers is{" "}
+              {formatCurrency(standardDeductionAmount)}. This is automatically
+              applied. Choose itemized only if your deductions exceed this
+              amount.
+            </ContextCard>
           </div>
         ) : (
           <div className="animate-fade-up delay-2 space-y-3">
-            <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider">
-              Itemized Deductions
-            </p>
+            <SectionHeader title="Itemized Deductions" accent="green" />
             {itemizedFields.map((field) => (
               <Card key={field.id} className="!p-4">
                 <FormInput

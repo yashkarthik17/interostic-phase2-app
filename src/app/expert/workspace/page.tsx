@@ -7,6 +7,7 @@ import {
   Card,
   Button,
   Badge,
+  SectionHeader,
 } from "@/components/ui/shell";
 import {
   Star,
@@ -78,8 +79,8 @@ export default function ExpertWorkspacePage() {
       <ScreenContent className="space-y-4 pt-2">
         {/* Expert Profile */}
         <div className="animate-fade-up delay-1">
-          <Card className="flex items-center gap-4">
-            <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-navy text-white font-bold text-lg shrink-0">
+          <Card className="flex items-center gap-4 bg-gradient-to-br from-brand-blue-50 to-white">
+            <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-blue text-white font-bold text-lg shrink-0">
               MC
             </div>
             <div className="flex-1 min-w-0">

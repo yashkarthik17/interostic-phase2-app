@@ -6,6 +6,7 @@ import {
   ScreenContent,
   Card,
   Badge,
+  EmptyState,
 } from "@/components/ui/shell";
 import { FileText, Download, Filter } from "lucide-react";
 
@@ -110,11 +111,11 @@ export default function InvoicesPage() {
         </div>
 
         {filteredInvoices.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-12">
-            <FileText size={32} className="text-placeholder mb-3" />
-            <p className="text-sm font-semibold text-muted">No invoices found</p>
-            <p className="text-xs text-placeholder">Try adjusting your filter</p>
-          </div>
+          <EmptyState
+            icon={FileText}
+            title="No invoices found"
+            description="Try adjusting your filter to see more invoices."
+          />
         )}
       </ScreenContent>
     </AppShell>

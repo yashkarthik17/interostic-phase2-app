@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Star, ArrowRight, BarChart3, Phone, ChevronRight, TrendingDown, Shield } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button } from "@/components/ui/shell";
+import { Star, ArrowRight, BarChart3, Phone, ChevronRight, TrendingDown, Shield, Sparkles } from "lucide-react";
+import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button, ContextCard, StickyFooter } from "@/components/ui/shell";
 import { getStore, formatCurrency, formatPercent, sampleResolutions } from "@/lib/store";
 
 export default function ResultsPage() {
@@ -46,88 +46,141 @@ export default function ResultsPage() {
           {/* Resolution Cards */}
           {sorted.map((option, i) => (
             <div key={option.id} className={`animate-fade-up delay-${Math.min(i + 1, 6)}`}>
-              <Card
-                onClick={() => router.push(`/analysis/results/${option.id}`)}
-                className={option.recommended ? "!border-brand-green ring-1 ring-brand-green/20" : ""}
-              >
-                <div className="space-y-3">
-                  {/* Header */}
-                  <div className="flex items-start justify-between">
+              {option.recommended ? (
+                /* RECOMMENDED — prominent with glow ring and gradient banner */
+                <div
+                  onClick={() => router.push(`/analysis/results/${option.id}`)}
+                  className="cursor-pointer bg-white border-[2px] border-brand-blue rounded-2xl overflow-hidden shadow-[var(--shadow-glow-blue)] hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+                >
+                  {/* Gradient banner */}
+                  <div className="bg-gradient-to-r from-brand-blue to-brand-blue/80 px-5 py-2.5 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <h3 className="text-base font-black text-navy">{option.name}</h3>
-                      {option.recommended && (
-                        <Badge variant="success">
-                          <Star size={10} /> RECOMMENDED
-                        </Badge>
+                      <Star size={14} className="text-white" />
+                      <span className="text-xs font-black text-white uppercase tracking-wider">Best Match for You</span>
+                    </div>
+                    <Sparkles size={14} className="text-white/60" />
+                  </div>
+                  <div className="p-5 space-y-3">
+                    {/* Header */}
+                    <div className="flex items-start justify-between">
+                      <h3 className="text-lg font-black text-navy">{option.name}</h3>
+                      <ChevronRight size={16} className="text-brand-blue mt-1 shrink-0" />
+                    </div>
+
+                    {/* Stats */}
+                    <div className="flex items-center gap-4">
+                      {option.savingsPercent > 0 && (
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs text-muted">Save</span>
+                          <span className="text-lg font-black text-brand-green">{formatPercent(option.savingsPercent)}</span>
+                        </div>
                       )}
+                      {option.id === "oic" && (
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs text-muted">Pay only</span>
+                          <span className="text-lg font-black text-navy">{formatCurrency(totalDebt - option.savings)}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs text-muted">Duration</span>
+                        <span className="text-sm font-bold text-navy">{option.duration}</span>
+                      </div>
                     </div>
-                    <ChevronRight size={16} className="text-muted mt-1 shrink-0" />
-                  </div>
 
-                  {/* Stats */}
-                  <div className="flex items-center gap-4">
+                    {/* Description */}
+                    <p className="text-xs text-muted leading-relaxed">{option.description}</p>
+
+                    {/* Savings bar */}
                     {option.savingsPercent > 0 && (
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs text-muted">Save</span>
-                        <span className="text-sm font-black text-brand-green">{formatPercent(option.savingsPercent)}</span>
+                      <div>
+                        <div className="flex justify-between text-[10px] font-semibold mb-1">
+                          <span className="text-muted">Savings</span>
+                          <span className="text-brand-green font-black">{formatCurrency(option.savings)}</span>
+                        </div>
+                        <div className="h-2 bg-border rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-brand-green to-brand-green/80 rounded-full transition-all duration-1000"
+                            style={{ width: `${option.savingsPercent}%` }}
+                          />
+                        </div>
                       </div>
                     )}
-                    {option.monthlyPayment > 0 ? (
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs text-muted">Monthly</span>
-                        <span className="text-sm font-bold text-navy">{formatCurrency(option.monthlyPayment)}/mo</span>
-                      </div>
-                    ) : option.id === "oic" ? (
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs text-muted">Pay</span>
-                        <span className="text-sm font-bold text-navy">{formatCurrency(totalDebt - option.savings)}</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs text-muted">Monthly</span>
-                        <span className="text-sm font-bold text-navy">{formatCurrency(0)}/mo</span>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs text-muted">Duration</span>
-                      <span className="text-sm font-bold text-navy">{option.duration}</span>
-                    </div>
                   </div>
+                </div>
+              ) : (
+                /* Other options - standard card with shadow */
+                <Card onClick={() => router.push(`/analysis/results/${option.id}`)}>
+                  <div className="space-y-3">
+                    {/* Header */}
+                    <div className="flex items-start justify-between">
+                      <h3 className="text-base font-black text-navy">{option.name}</h3>
+                      <ChevronRight size={16} className="text-muted mt-1 shrink-0" />
+                    </div>
 
-                  {/* Description */}
-                  <p className="text-xs text-muted leading-relaxed">{option.description}</p>
-
-                  {/* Savings bar */}
-                  {option.savingsPercent > 0 && (
-                    <div>
-                      <div className="flex justify-between text-[10px] font-semibold mb-1">
-                        <span className="text-muted">Savings</span>
-                        <span className="text-brand-green">{formatCurrency(option.savings)}</span>
-                      </div>
-                      <div className="h-1.5 bg-border rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-brand-green rounded-full transition-all duration-1000"
-                          style={{ width: `${option.savingsPercent}%` }}
-                        />
+                    {/* Stats */}
+                    <div className="flex items-center gap-4">
+                      {option.savingsPercent > 0 && (
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs text-muted">Save</span>
+                          <span className="text-sm font-black text-brand-green">{formatPercent(option.savingsPercent)}</span>
+                        </div>
+                      )}
+                      {option.monthlyPayment > 0 ? (
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs text-muted">Monthly</span>
+                          <span className="text-sm font-bold text-navy">{formatCurrency(option.monthlyPayment)}/mo</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs text-muted">Monthly</span>
+                          <span className="text-sm font-bold text-navy">{formatCurrency(0)}/mo</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs text-muted">Duration</span>
+                        <span className="text-sm font-bold text-navy">{option.duration}</span>
                       </div>
                     </div>
-                  )}
-                </div>
-              </Card>
+
+                    {/* Description */}
+                    <p className="text-xs text-muted leading-relaxed">{option.description}</p>
+
+                    {/* Savings bar */}
+                    {option.savingsPercent > 0 && (
+                      <div>
+                        <div className="flex justify-between text-[10px] font-semibold mb-1">
+                          <span className="text-muted">Savings</span>
+                          <span className="text-brand-green">{formatCurrency(option.savings)}</span>
+                        </div>
+                        <div className="h-1.5 bg-border rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-brand-green rounded-full transition-all duration-1000"
+                            style={{ width: `${option.savingsPercent}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              )}
             </div>
           ))}
 
-          {/* Action Buttons */}
-          <div className="animate-fade-up delay-5 space-y-3 pt-2 pb-4">
-            <Button onClick={() => router.push("/analysis/compare")}>
-              <BarChart3 size={16} /> Compare Options
-            </Button>
-            <Button variant="secondary" onClick={() => router.push("/expert")}>
-              <Phone size={16} /> Talk to Expert
-            </Button>
-          </div>
+          {/* Spacer for sticky footer */}
+          <div className="h-4" />
         </div>
       </ScreenContent>
+
+      <StickyFooter>
+        <div className="space-y-3">
+          <Button onClick={() => router.push("/analysis/compare")}>
+            <BarChart3 size={16} /> Compare Options
+          </Button>
+          <Button variant="secondary" onClick={() => router.push("/expert")}>
+            <Phone size={16} /> Talk to Expert
+          </Button>
+        </div>
+      </StickyFooter>
     </AppShell>
   );
 }

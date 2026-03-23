@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Shield } from "lucide-react";
 import { AppShell, ScreenContent } from "@/components/ui/shell";
 
 const processingSteps = [
@@ -54,17 +54,25 @@ export default function ProcessingPage() {
   return (
     <AppShell hideNav>
       <ScreenContent className="flex flex-col items-center justify-center min-h-full">
-        {/* Spinner */}
+        {/* Brand logo area */}
+        <div className="animate-fade-up mb-4">
+          <div className="flex items-center justify-center w-12 h-12 bg-brand-blue/10 rounded-xl mb-2 mx-auto">
+            <Shield size={22} className="text-brand-blue" />
+          </div>
+          <p className="text-xs font-bold text-muted text-center uppercase tracking-wider">BlastTax Analysis</p>
+        </div>
+
+        {/* Spinner - branded blue */}
         <div className="relative mb-10">
           {/* Outer ring */}
           <svg className="w-28 h-28 -rotate-90" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="42" fill="none" stroke="#F1F5F9" strokeWidth="6" />
+            <circle cx="50" cy="50" r="42" fill="none" stroke="var(--color-border)" strokeWidth="6" />
             <circle
               cx="50"
               cy="50"
               r="42"
               fill="none"
-              stroke="#00A651"
+              stroke="var(--color-brand-blue)"
               strokeWidth="6"
               strokeLinecap="round"
               strokeDasharray={`${2 * Math.PI * 42}`}
@@ -78,7 +86,7 @@ export default function ProcessingPage() {
           </div>
         </div>
 
-        {/* Steps */}
+        {/* Steps with checkmarks */}
         <div className="space-y-3 w-full max-w-[280px]">
           {processingSteps.map((step, i) => (
             <div
@@ -87,13 +95,15 @@ export default function ProcessingPage() {
                 i <= currentStep ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
               }`}
             >
-              <div className={`shrink-0 transition-colors duration-300 ${i < currentStep ? "text-brand-green" : i === currentStep ? "text-navy" : "text-border"}`}>
+              <div className={`shrink-0 transition-all duration-300 ${i < currentStep ? "text-brand-green" : i === currentStep ? "text-brand-blue" : "text-border"}`}>
                 {i < currentStep ? (
-                  <CheckCircle size={18} />
+                  <div className="animate-celebrate">
+                    <CheckCircle size={20} />
+                  </div>
                 ) : i === currentStep ? (
-                  <div className="w-[18px] h-[18px] rounded-full border-2 border-navy border-t-transparent animate-spin" />
+                  <div className="w-5 h-5 rounded-full border-2 border-brand-blue border-t-transparent animate-spin" />
                 ) : (
-                  <div className="w-[18px] h-[18px] rounded-full border-2 border-border" />
+                  <div className="w-5 h-5 rounded-full border-2 border-border" />
                 )}
               </div>
               <span
@@ -103,13 +113,16 @@ export default function ProcessingPage() {
               >
                 {step.text}
               </span>
+              {i < currentStep && (
+                <span className="ml-auto text-[10px] font-bold text-brand-green bg-brand-green-light px-2 py-0.5 rounded-full">Done</span>
+              )}
             </div>
           ))}
         </div>
 
         {/* Subtitle */}
-        <p className="text-xs text-muted mt-8 text-center">
-          Reviewing your information against IRS guidelines...
+        <p className="text-xs text-muted mt-8 text-center max-w-[250px] leading-relaxed">
+          Reviewing your information against current IRS guidelines and National Standards...
         </p>
       </ScreenContent>
     </AppShell>

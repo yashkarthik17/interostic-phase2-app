@@ -6,9 +6,11 @@ import {
   ScreenHeader,
   ScreenContent,
   Badge,
+  SectionHeader,
+  EmptyState,
 } from "@/components/ui/shell";
 
-import { Search, Clock, ChevronRight } from "lucide-react";
+import { Search, Clock, ChevronRight, BookOpen } from "lucide-react";
 
 interface Article {
   slug: string;
@@ -103,7 +105,7 @@ export default function LearnPage() {
       <ScreenHeader title="Learn" backHref="/dashboard" />
 
       <div className="px-6 pb-3 shrink-0 space-y-3">
-        {/* Search bar */}
+        {/* Search bar — warm styling */}
         <div className="relative animate-fade-up">
           <Search
             size={16}
@@ -114,11 +116,11 @@ export default function LearnPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search articles..."
-            className="w-full pl-10 pr-4 py-2.5 bg-surface-alt border border-border rounded-xl text-sm font-medium text-navy placeholder:text-placeholder focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/10 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 bg-surface-alt border-[1.5px] border-border rounded-xl text-sm font-medium text-navy placeholder:text-placeholder hover:border-border-strong focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 transition-all shadow-[var(--shadow-card)]"
           />
         </div>
 
-        {/* Category pills */}
+        {/* Category pills — interactive with shadows */}
         <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide animate-fade-up delay-1">
           {categories.map((cat) => (
             <button
@@ -126,8 +128,8 @@ export default function LearnPage() {
               onClick={() => setActiveCategory(cat)}
               className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 shrink-0 ${
                 activeCategory === cat
-                  ? "bg-navy text-white"
-                  : "bg-surface-alt text-muted hover:text-navy"
+                  ? "bg-navy text-white shadow-[var(--shadow-card)]"
+                  : "bg-white text-muted border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:text-navy hover:border-border-strong"
               }`}
             >
               {cat}
@@ -138,21 +140,18 @@ export default function LearnPage() {
 
       <ScreenContent>
         {filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-center animate-fade-up">
-            <p className="text-sm font-bold text-navy mb-1">
-              No articles found
-            </p>
-            <p className="text-xs text-muted">
-              Try adjusting your search or category filter
-            </p>
-          </div>
+          <EmptyState
+            icon={BookOpen}
+            title="No articles found"
+            description="Try adjusting your search or category filter to find what you're looking for."
+          />
         ) : (
           <div className="space-y-3">
             {filtered.map((article, i) => (
               <Link
                 key={article.slug}
                 href={`/learn/${article.slug}`}
-                className="animate-fade-up flex flex-col gap-2.5 p-4 bg-white border border-border rounded-2xl transition-all duration-200 hover:border-border-strong hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99]"
+                className="animate-fade-up flex flex-col gap-2.5 p-4 bg-white border border-border rounded-2xl shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[var(--shadow-card)] active:scale-[0.99]"
                 style={{ animationDelay: `${(i + 1) * 0.06}s` }}
               >
                 <div className="flex items-start justify-between gap-2">
@@ -181,7 +180,6 @@ export default function LearnPage() {
           </div>
         )}
       </ScreenContent>
-
     </AppShell>
   );
 }

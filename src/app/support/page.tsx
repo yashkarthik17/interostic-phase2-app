@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { AppShell, ScreenHeader, ScreenContent, Card, Button, IconCircle, FormInput } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, Button, IconCircle, FormInput, SectionHeader } from "@/components/ui/shell";
 import { Mail, Phone, MessageCircle, Clock, Upload, Send, CheckCircle2 } from "lucide-react";
 
 const channels = [
@@ -55,9 +55,7 @@ export default function SupportPage() {
       <ScreenContent className="space-y-4 pt-2">
         {/* Support Channels */}
         <div className="animate-fade-up delay-1">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Contact Us
-          </p>
+          <SectionHeader title="Contact Us" subtitle="Choose your preferred method" accent="blue" />
           <div className="space-y-2.5">
             {channels.map((ch) => (
               <Card key={ch.title} className="!p-4">
@@ -79,9 +77,7 @@ export default function SupportPage() {
 
         {/* Submit a Ticket */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Submit a Ticket
-          </p>
+          <SectionHeader title="Submit a Ticket" subtitle="We respond within 24 hours" accent="green" />
 
           {submitted ? (
             <Card>

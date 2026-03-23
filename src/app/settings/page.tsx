@@ -7,6 +7,7 @@ import {
   ScreenContent,
   Card,
   ToggleSwitch,
+  SectionHeader,
 } from "@/components/ui/shell";
 import {
   Bell,
@@ -38,9 +39,7 @@ export default function SettingsPage() {
       <ScreenContent className="space-y-4 pt-2">
         {/* Notifications */}
         <div className="animate-fade-up delay-1">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Notifications
-          </p>
+          <SectionHeader title="Notifications" subtitle="Manage how you receive updates" />
           <Card className="!p-0 divide-y divide-border">
             <div className="flex items-center gap-3.5 px-5 py-4">
               <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-navy-light">
@@ -82,9 +81,7 @@ export default function SettingsPage() {
 
         {/* Privacy */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Privacy
-          </p>
+          <SectionHeader title="Privacy" subtitle="Control your data and security" accent="green" />
           <Card className="!p-0 divide-y divide-border">
             <div className="flex items-center gap-3.5 px-5 py-4">
               <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-navy-light">
@@ -105,9 +102,7 @@ export default function SettingsPage() {
 
         {/* Appearance */}
         <div className="animate-fade-up delay-3">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Appearance
-          </p>
+          <SectionHeader title="Appearance" />
           <Card className="!p-0">
             <div className="flex items-center gap-3.5 px-5 py-4">
               <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-navy-light">
@@ -121,9 +116,7 @@ export default function SettingsPage() {
 
         {/* Connected Services */}
         <div className="animate-fade-up delay-4">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Connected Services
-          </p>
+          <SectionHeader title="Connected Services" />
           <Card className="!p-0">
             <button type="button" className="flex items-center gap-3.5 px-5 py-4 w-full hover:bg-surface-alt transition-colors">
               <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-navy-light">
@@ -137,9 +130,7 @@ export default function SettingsPage() {
 
         {/* Data */}
         <div className="animate-fade-up delay-5">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Data
-          </p>
+          <SectionHeader title="Data" accent="red" />
           <Card className="!p-0 divide-y divide-border">
             <button type="button" className="flex items-center gap-3.5 px-5 py-4 w-full hover:bg-surface-alt transition-colors">
               <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-navy-light">

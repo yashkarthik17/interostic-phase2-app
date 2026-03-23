@@ -5,6 +5,8 @@ import {
   ScreenHeader,
   ScreenContent,
   Card,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Shield, ChevronDown, Info, CheckCircle2 } from "lucide-react";
 
@@ -60,13 +62,10 @@ export default function AdminWaiverPage() {
         </p>
 
         <div className="animate-fade-up delay-1">
-          <div className="flex items-center gap-2 p-3 bg-navy-light rounded-xl mb-1">
-            <Info size={16} className="text-navy shrink-0" />
-            <p className="text-xs font-semibold text-navy">
-              Administrative waivers are found in the Internal Revenue Manual (IRM),
-              not the tax code. They reflect IRS policy decisions.
-            </p>
-          </div>
+          <ContextCard icon={Info} title="IRM-Based Relief" variant="warm">
+            Administrative waivers are found in the Internal Revenue Manual (IRM),
+            not the tax code. They reflect IRS policy decisions.
+          </ContextCard>
         </div>
 
         <div className="space-y-3">

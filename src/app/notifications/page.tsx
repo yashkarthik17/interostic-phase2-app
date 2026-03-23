@@ -5,6 +5,7 @@ import {
   ScreenHeader,
   ScreenContent,
   IconCircle,
+  EmptyState,
 } from "@/components/ui/shell";
 
 import {
@@ -12,7 +13,7 @@ import {
   CreditCard,
   FileCheck,
   MessageSquare,
-  Settings,
+  CheckCircle2,
 } from "lucide-react";
 
 interface Notification {
@@ -129,8 +130,8 @@ export default function NotificationsPage() {
             onClick={() => setFilter(f)}
             className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
               filter === f
-                ? "bg-navy text-white"
-                : "bg-surface-alt text-muted hover:text-navy"
+                ? "bg-navy text-white shadow-[var(--shadow-card)]"
+                : "bg-surface-alt text-muted hover:text-navy hover:bg-surface-warm"
             }`}
           >
             {f === "all" ? "All" : `Unread (${unreadCount})`}
@@ -140,35 +141,35 @@ export default function NotificationsPage() {
 
       <ScreenContent>
         {filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-up">
-            <div className="flex items-center justify-center w-16 h-16 bg-surface-alt rounded-full mb-4">
-              <Settings size={24} className="text-placeholder" />
-            </div>
-            <p className="text-sm font-bold text-navy mb-1">All caught up!</p>
-            <p className="text-xs text-muted">No unread notifications</p>
-          </div>
+          <EmptyState
+            icon={CheckCircle2}
+            title="All caught up!"
+            description="No unread notifications. We'll let you know when something needs your attention."
+          />
         ) : (
           <div className="space-y-2">
             {filtered.map((item, i) => (
               <button
                 key={item.id}
                 onClick={() => markRead(item.id)}
-                className={`animate-fade-up w-full flex items-start gap-3.5 p-4 rounded-2xl text-left transition-all duration-200 hover:bg-surface-alt active:scale-[0.99] ${
-                  !item.read ? "bg-navy-light/40" : "bg-white"
+                className={`animate-fade-up w-full flex items-start gap-3.5 p-4 rounded-2xl text-left transition-all duration-200 border hover:shadow-[var(--shadow-card)] active:scale-[0.99] ${
+                  !item.read
+                    ? "bg-brand-blue-50 border-brand-blue/10"
+                    : "bg-white border-border hover:bg-surface-alt"
                 }`}
                 style={{ animationDelay: `${i * 0.06}s` }}
               >
                 <div className="relative shrink-0">
                   <IconCircle icon={item.icon} color={item.iconColor} size={42} />
                   {!item.read && (
-                    <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-brand-red rounded-full border-2 border-white" />
+                    <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-brand-red rounded-full border-2 border-white shadow-[var(--shadow-glow-red)]" />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2 mb-0.5">
                     <p
                       className={`text-sm font-bold truncate ${
-                        !item.read ? "text-navy" : "text-navy/80"
+                        !item.read ? "text-navy" : "text-navy/70"
                       }`}
                     >
                       {item.title}
@@ -177,7 +178,7 @@ export default function NotificationsPage() {
                       {item.time}
                     </span>
                   </div>
-                  <p className="text-xs text-muted leading-relaxed line-clamp-2">
+                  <p className={`text-xs leading-relaxed line-clamp-2 ${!item.read ? "text-muted" : "text-muted-light"}`}>
                     {item.description}
                   </p>
                 </div>
@@ -186,7 +187,6 @@ export default function NotificationsPage() {
           </div>
         )}
       </ScreenContent>
-
     </AppShell>
   );
 }

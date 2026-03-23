@@ -6,6 +6,8 @@ import {
   ScreenContent,
   Card,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { sampleCases } from "@/lib/store";
 import {
@@ -124,7 +126,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
-          <HelpCircle size={16} className="text-muted mt-0.5 shrink-0" />
+          <HelpCircle size={16} className="text-brand-blue mt-0.5 shrink-0" />
           <span className="text-sm font-semibold text-navy">{q}</span>
         </div>
         <ChevronDown
@@ -135,9 +137,13 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         />
       </div>
       {open && (
-        <p className="text-xs text-muted leading-relaxed mt-2 pl-7 pr-4">
-          {a}
-        </p>
+        <div className="mt-3 ml-7 mr-2">
+          <div className="rounded-xl bg-gradient-to-br from-brand-blue-50 to-brand-blue-light/60 border border-brand-blue/10 px-4 py-3">
+            <p className="text-xs text-navy/80 leading-relaxed">
+              {a}
+            </p>
+          </div>
+        </div>
       )}
     </button>
   );
@@ -181,9 +187,7 @@ export default function SubmissionDetailPage({
 
         {/* Vertical Timeline */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Milestones
-          </p>
+          <SectionHeader title="Milestones" subtitle="Your submission progress with the IRS" accent="blue" />
           <Card className="!p-4">
             {milestones.map((m, i) => (
               <div key={i} className="flex gap-3">
@@ -192,21 +196,21 @@ export default function SubmissionDetailPage({
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all ${
                       m.status === "complete"
-                        ? "bg-brand-green-light"
+                        ? "bg-brand-green text-white shadow-[var(--shadow-glow-green)]"
                         : m.status === "current"
-                        ? "bg-brand-blue/10 ring-[3px] ring-brand-blue/20"
-                        : "bg-surface-alt"
+                        ? "bg-brand-blue text-white ring-[3px] ring-brand-blue/20 shadow-[var(--shadow-glow-blue)]"
+                        : "bg-border/80 text-muted-light"
                     }`}
                   >
                     {m.status === "complete" ? (
                       <CheckCircle2
                         size={15}
-                        className="text-brand-green"
+                        className="text-white"
                       />
                     ) : m.status === "current" ? (
-                      <div className="w-3 h-3 rounded-full bg-brand-blue animate-pulse" />
+                      <div className="w-3 h-3 rounded-full bg-white animate-pulse" />
                     ) : (
-                      <Clock size={13} className="text-placeholder" />
+                      <Clock size={13} className="text-muted-light" />
                     )}
                   </div>
                   {i < milestones.length - 1 && (
@@ -255,9 +259,7 @@ export default function SubmissionDetailPage({
 
         {/* FAQs */}
         <div className="animate-fade-up delay-3">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Frequently Asked Questions
-          </p>
+          <SectionHeader title="Frequently Asked Questions" subtitle="Common questions about your submission" />
           <Card className="!p-0 divide-y divide-border overflow-hidden">
             {faqs.map((faq, i) => (
               <FaqItem key={i} q={faq.q} a={faq.a} />

@@ -6,6 +6,9 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  EmptyState,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   Upload,
@@ -143,9 +146,9 @@ export default function DocumentsPage() {
       <ScreenContent className="space-y-4 pt-1">
         {/* Upload Zone */}
         <div className="animate-fade-up delay-1">
-          <button className="w-full p-8 border-2 border-dashed border-border-strong rounded-2xl flex flex-col items-center gap-3 text-center transition-all duration-200 hover:border-brand-blue hover:bg-navy-light/30 active:scale-[0.98]">
-            <div className="w-12 h-12 rounded-xl bg-navy-light flex items-center justify-center">
-              <Upload size={22} className="text-navy" />
+          <button className="w-full p-8 border-2 border-dashed border-brand-blue/30 rounded-2xl bg-gradient-to-br from-brand-blue-50 to-surface-alt flex flex-col items-center gap-3 text-center transition-all duration-200 hover:border-brand-blue hover:from-brand-blue-50 hover:to-brand-blue-light/40 hover:shadow-[var(--shadow-lift)] active:scale-[0.98]">
+            <div className="w-14 h-14 rounded-2xl bg-white shadow-[var(--shadow-card)] flex items-center justify-center">
+              <Upload size={24} className="text-brand-blue" />
             </div>
             <div>
               <p className="text-sm font-bold text-navy mb-0.5">
@@ -214,17 +217,16 @@ export default function DocumentsPage() {
         </div>
 
         {/* Document List */}
-        <div className="animate-fade-up delay-3 space-y-2">
+        <div className="animate-fade-up delay-3">
+          <SectionHeader title="Your Documents" subtitle={`${docs.length} document${docs.length !== 1 ? "s" : ""}`} />
+        </div>
+        <div className="space-y-2">
           {docs.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <Search size={28} className="text-placeholder mb-3" />
-              <p className="text-sm font-bold text-navy mb-1">
-                No documents found
-              </p>
-              <p className="text-xs text-muted">
-                No {filter.toLowerCase()} documents yet.
-              </p>
-            </div>
+            <EmptyState
+              icon={Search}
+              title="No documents found"
+              description={`No ${filter.toLowerCase()} documents yet. Upload some to get started.`}
+            />
           ) : (
             docs.map((doc) => (
               <Card key={doc.id} className="!p-0">
@@ -273,13 +275,9 @@ export default function DocumentsPage() {
 
         {/* Security Notice */}
         <div className="animate-fade-up delay-4">
-          <div className="flex items-center gap-3 px-4 py-3 bg-brand-green-light rounded-xl">
-            <Lock size={16} className="text-brand-green shrink-0" />
-            <p className="text-xs text-brand-green-dark font-semibold leading-relaxed">
-              All documents are encrypted and stored securely with
-              bank-level AES-256 encryption.
-            </p>
-          </div>
+          <ContextCard icon={Lock} title="Bank-Level Security" variant="green">
+            All documents are encrypted and stored securely with AES-256 encryption. Your sensitive data never leaves our secure servers.
+          </ContextCard>
         </div>
       </ScreenContent>
     </AppShell>

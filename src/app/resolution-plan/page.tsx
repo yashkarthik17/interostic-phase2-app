@@ -8,6 +8,8 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
+  StickyFooter,
 } from "@/components/ui/shell";
 import {
   CheckCircle2,
@@ -186,8 +188,9 @@ export default function ResolutionPlanPage() {
           </Card>
         </div>
 
-        {/* CTAs */}
-        <div className="animate-fade-up delay-3 space-y-3">
+      </ScreenContent>
+      <StickyFooter>
+        <div className="space-y-3">
           <Button href="/forms">
             <FileText size={16} />
             Begin Form 656
@@ -197,7 +200,7 @@ export default function ResolutionPlanPage() {
             Talk to Expert First
           </Button>
         </div>
-      </ScreenContent>
+      </StickyFooter>
     </AppShell>
   );
 }

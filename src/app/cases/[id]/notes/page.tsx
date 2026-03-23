@@ -6,6 +6,7 @@ import {
   ScreenContent,
   Card,
   Button,
+  StickyFooter,
 } from "@/components/ui/shell";
 import { sampleCases } from "@/lib/store";
 import { Send, User, Shield } from "lucide-react";
@@ -117,8 +118,8 @@ export default function CaseNotesPage({
         ))}
       </ScreenContent>
 
-      {/* Fixed Add Note Form */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-border px-4 py-3">
+      {/* Sticky Add Note Form */}
+      <StickyFooter>
         <div className="flex gap-2">
           <input
             type="text"
@@ -126,17 +127,17 @@ export default function CaseNotesPage({
             onChange={(e) => setNewNote(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAddNote()}
             placeholder="Add a note..."
-            className="flex-1 px-4 py-3 bg-surface-alt border border-border rounded-xl text-sm font-medium text-navy placeholder:text-placeholder focus:border-brand-blue focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 transition-all"
+            className="flex-1 px-4 py-3 bg-surface-alt border-[1.5px] border-border rounded-xl text-sm font-medium text-navy placeholder:text-placeholder focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 transition-all"
           />
           <button
             onClick={handleAddNote}
             disabled={!newNote.trim()}
-            className="w-12 h-12 rounded-xl bg-brand-green text-white flex items-center justify-center transition-all duration-200 hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
+            className="w-12 h-12 rounded-xl bg-brand-green text-white flex items-center justify-center shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
           >
             <Send size={18} />
           </button>
         </div>
-      </div>
+      </StickyFooter>
     </AppShell>
   );
 }

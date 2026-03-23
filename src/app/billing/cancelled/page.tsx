@@ -4,6 +4,7 @@ import {
   ScreenContent,
   Card,
   Button,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { XCircle, Calendar, Shield, BarChart3, MessageCircle, FileText } from "lucide-react";
 

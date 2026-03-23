@@ -5,6 +5,8 @@ import {
   ScreenHeader,
   ScreenContent,
   Card,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Heart, ChevronDown, CheckCircle2, FileText, Info, Users } from "lucide-react";
 
@@ -69,14 +71,11 @@ export default function DeceasedPage() {
         </p>
 
         <div className="animate-fade-up delay-1">
-          <div className="flex items-start gap-2 p-3 bg-info-light rounded-xl">
-            <Info size={16} className="text-info shrink-0 mt-0.5" />
-            <p className="text-xs font-semibold text-info leading-relaxed">
-              Tax debt does not pass to family members. The estate is responsible
-              for outstanding taxes, but heirs are not personally liable unless
-              they received estate assets before debts were paid.
-            </p>
-          </div>
+          <ContextCard icon={Info} title="Important to Know" variant="blue">
+            Tax debt does not pass to family members. The estate is responsible
+            for outstanding taxes, but heirs are not personally liable unless
+            they received estate assets before debts were paid.
+          </ContextCard>
         </div>
 
         {/* Step by Step */}

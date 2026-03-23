@@ -1,5 +1,5 @@
 "use client";
-import { AppShell, ScreenHeader, ScreenContent, Card } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, SectionHeader, ContextCard } from "@/components/ui/shell";
 import { CheckCircle2, XCircle, AlertTriangle, Info } from "lucide-react";
 
 type Compat = "yes" | "no" | "conditional";

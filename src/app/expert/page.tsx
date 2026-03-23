@@ -6,6 +6,8 @@ import {
   Card,
   Button,
   IconCircle,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   Shield,
@@ -18,6 +20,7 @@ import {
   ChevronRight,
   Star,
   CheckCircle2,
+  Info,
 } from "lucide-react";
 
 const benefits = [
@@ -72,7 +75,7 @@ export default function ExpertPage() {
       <ScreenContent className="space-y-5 pt-2">
         {/* Hero */}
         <div className="animate-fade-up delay-1">
-          <div className="relative overflow-hidden rounded-2xl bg-navy p-6 text-center">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-blue to-navy p-6 text-center">
             <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/5" />
             <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-brand-green/10" />
             <div className="relative z-10 flex flex-col items-center">
@@ -82,7 +85,7 @@ export default function ExpertPage() {
               <h2 className="text-xl font-bold text-white mb-2">
                 Get Expert Help
               </h2>
-              <p className="text-sm text-white/60 leading-relaxed max-w-[260px]">
+              <p className="text-sm text-white/70 leading-relaxed max-w-[260px]">
                 Work with licensed tax professionals who will fight for the best
                 possible outcome on your case.
               </p>
@@ -92,27 +95,19 @@ export default function ExpertPage() {
 
         {/* Benefits */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Why Choose Expert Help
-          </p>
+          <SectionHeader title="Why Choose Expert Help" subtitle="Licensed professionals on your side" accent="blue" />
           <div className="space-y-3">
             {benefits.map((b) => (
-              <Card key={b.title} className="flex items-start gap-4 !p-4">
-                <IconCircle icon={b.icon} color={b.color} size={42} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-navy mb-0.5">{b.title}</p>
-                  <p className="text-xs text-muted leading-relaxed">{b.desc}</p>
-                </div>
-              </Card>
+              <ContextCard key={b.title} icon={b.icon} title={b.title} variant={b.color === "green" ? "green" : b.color === "violet" ? "blue" : "blue"}>
+                {b.desc}
+              </ContextCard>
             ))}
           </div>
         </div>
 
         {/* How It Works */}
         <div className="animate-fade-up delay-3">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            How It Works
-          </p>
+          <SectionHeader title="How It Works" subtitle="Three simple steps to resolution" accent="green" />
           <Card className="!p-0 divide-y divide-border">
             {steps.map((s) => (
               <div key={s.num} className="flex items-start gap-4 px-5 py-4">
@@ -130,33 +125,38 @@ export default function ExpertPage() {
 
         {/* Pricing */}
         <div className="animate-fade-up delay-4">
-          <Card className="text-center">
-            <div className="flex items-center justify-center gap-1 mb-2">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <Star
-                  key={i}
-                  size={14}
-                  className="text-warning fill-warning"
-                />
-              ))}
+          <SectionHeader title="Pricing" accent="blue" />
+          <ContextCard icon={Info} title="Expert Session Pricing" variant="warm">
+            <div className="text-center mt-2">
+              <div className="flex items-center justify-center gap-1 mb-2">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star
+                    key={i}
+                    size={14}
+                    className="text-warning fill-warning"
+                  />
+                ))}
+              </div>
+              <p className="text-2xl font-black text-navy mb-1">$149</p>
+              <p className="text-xs text-muted font-semibold mb-1">per session</p>
+              <div className="flex items-center justify-center gap-1.5 mb-3">
+                <CheckCircle2 size={13} className="text-brand-green" />
+                <span className="text-xs font-semibold text-brand-green">
+                  Included in Pro plan
+                </span>
+              </div>
+              <p className="text-xs text-muted leading-relaxed">
+                Each session includes a full case review, strategy recommendation,
+                and direct IRS representation for your matter.
+              </p>
             </div>
-            <p className="text-2xl font-black text-navy mb-1">$149</p>
-            <p className="text-xs text-muted font-semibold mb-1">per session</p>
-            <div className="flex items-center justify-center gap-1.5 mb-4">
-              <CheckCircle2 size={13} className="text-brand-green" />
-              <span className="text-xs font-semibold text-brand-green">
-                Included in Pro plan
-              </span>
-            </div>
-            <p className="text-xs text-muted leading-relaxed mb-5">
-              Each session includes a full case review, strategy recommendation,
-              and direct IRS representation for your matter.
-            </p>
+          </ContextCard>
+          <div className="mt-4">
             <Button href="/expert/pending">
               Get Started
               <ChevronRight size={16} />
             </Button>
-          </Card>
+          </div>
         </div>
       </ScreenContent>
     </AppShell>

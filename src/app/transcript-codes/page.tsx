@@ -6,6 +6,7 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { Search, Info } from "lucide-react";
 
@@ -113,7 +114,7 @@ export default function TranscriptCodesPage() {
               placeholder="Search by code or keyword..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-surface-alt border-[1.5px] border-border rounded-xl text-sm font-medium text-navy placeholder:text-placeholder focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 transition-all duration-150"
+              className="w-full pl-10 pr-4 py-3 bg-surface-warm border-[1.5px] border-border rounded-xl text-sm font-medium text-navy placeholder:text-placeholder focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 transition-all duration-150"
             />
           </div>
         </div>
@@ -149,7 +150,7 @@ export default function TranscriptCodesPage() {
             return (
               <div
                 key={tc.code}
-                className={`animate-fade-up p-4 bg-white border rounded-2xl ${
+                className={`animate-fade-up p-4 bg-white border rounded-2xl shadow-[var(--shadow-card)] ${
                   tc.important ? "border-brand-blue/30" : "border-border"
                 }`}
                 style={{ animationDelay: `${Math.min(i, 10) * 0.03}s` }}

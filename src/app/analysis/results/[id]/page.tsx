@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { CheckCircle, XCircle, ArrowLeft, Phone, Clock, DollarSign, Shield, AlertTriangle, FileText, Calendar, TrendingUp } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button } from "@/components/ui/shell";
+import { CheckCircle, XCircle, ArrowLeft, Phone, Clock, DollarSign, Shield, AlertTriangle, FileText, Calendar, TrendingUp, Lightbulb } from "lucide-react";
+import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button, SectionHeader, ContextCard, StickyFooter } from "@/components/ui/shell";
 import { getStore, formatCurrency, sampleResolutions } from "@/lib/store";
 
 const detailContent: Record<string, {
@@ -192,7 +192,7 @@ export default function ResolutionDetailPage() {
         <div className="space-y-4 pt-2">
           {/* Hero Card */}
           <div className="animate-fade-up">
-            <Card className={`!bg-navy ${option.recommended ? "ring-1 ring-brand-green/30" : ""}`}>
+            <Card className={`!bg-navy ${option.recommended ? "ring-2 ring-brand-blue/30" : ""}`}>
               <div className="text-center space-y-2">
                 {option.recommended && (
                   <Badge variant="success">Recommended Option</Badge>
@@ -212,19 +212,21 @@ export default function ResolutionDetailPage() {
             </Card>
           </div>
 
+          {/* Explanation ContextCard */}
+          <div className="animate-fade-up delay-1">
+            <ContextCard icon={Lightbulb} title="What This Means for You" variant="warm">
+              <p>{option.description}</p>
+            </ContextCard>
+          </div>
+
           {/* Detail Sections */}
           {detail.sections.map((section, si) => (
-            <div key={si} className={`animate-fade-up delay-${Math.min(si + 1, 6)}`}>
+            <div key={si} className={`animate-fade-up delay-${Math.min(si + 2, 6)}`}>
+              <SectionHeader title={section.title} accent="blue" />
               <Card>
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex items-center justify-center w-8 h-8 bg-navy-light rounded-lg">
-                    <section.icon size={16} className="text-navy" />
-                  </div>
-                  <h3 className="text-sm font-bold text-navy">{section.title}</h3>
-                </div>
                 <div className="space-y-3">
                   {section.items.map((item, ii) => (
-                    <div key={ii} className="flex items-center justify-between">
+                    <div key={ii} className={`flex items-center justify-between py-1 ${ii < section.items.length - 1 ? "border-b border-border/50" : ""}`}>
                       <span className="text-xs text-muted">{item.label}</span>
                       <span className={`text-sm font-bold ${item.highlight ? "text-brand-green" : "text-navy"}`}>{item.value}</span>
                     </div>
@@ -235,16 +237,20 @@ export default function ResolutionDetailPage() {
           ))}
 
           {/* Eligibility Checklist */}
-          <div className="animate-fade-up delay-3">
+          <div className="animate-fade-up delay-4">
+            <SectionHeader title="Eligibility Checklist" accent="green" />
             <Card>
-              <h3 className="text-sm font-bold text-navy mb-3">Eligibility Checklist</h3>
               <div className="space-y-2.5">
                 {detail.eligibility.map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     {item.met ? (
-                      <CheckCircle size={16} className="text-brand-green shrink-0" />
+                      <div className="flex items-center justify-center w-6 h-6 bg-brand-green-light rounded-full shrink-0">
+                        <CheckCircle size={14} className="text-brand-green" />
+                      </div>
                     ) : (
-                      <XCircle size={16} className="text-danger shrink-0" />
+                      <div className="flex items-center justify-center w-6 h-6 bg-danger-light rounded-full shrink-0">
+                        <XCircle size={14} className="text-danger" />
+                      </div>
                     )}
                     <span className="text-xs font-medium text-navy">{item.label}</span>
                   </div>
@@ -254,13 +260,13 @@ export default function ResolutionDetailPage() {
           </div>
 
           {/* Key Facts */}
-          <div className="animate-fade-up delay-4">
+          <div className="animate-fade-up delay-5">
+            <SectionHeader title="Key Facts" accent="blue" />
             <Card>
-              <h3 className="text-sm font-bold text-navy mb-3">Key Facts</h3>
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {detail.keyFacts.map((fact, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-navy mt-1.5 shrink-0" />
+                  <div key={i} className="flex items-start gap-2.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-blue mt-1.5 shrink-0" />
                     <span className="text-xs text-muted leading-relaxed">{fact}</span>
                   </div>
                 ))}
@@ -268,17 +274,21 @@ export default function ResolutionDetailPage() {
             </Card>
           </div>
 
-          {/* Actions */}
-          <div className="animate-fade-up delay-5 space-y-3 pt-2 pb-4">
-            <Button onClick={() => router.push("/expert")}>
-              <Phone size={16} /> Discuss with Expert
-            </Button>
-            <Button variant="outline" onClick={() => router.push("/analysis/results")}>
-              <ArrowLeft size={16} /> Back to All Options
-            </Button>
-          </div>
+          {/* Spacer for sticky footer */}
+          <div className="h-4" />
         </div>
       </ScreenContent>
+
+      <StickyFooter>
+        <div className="space-y-3">
+          <Button onClick={() => router.push("/expert")}>
+            <Phone size={16} /> Discuss with Expert
+          </Button>
+          <Button variant="outline" onClick={() => router.push("/analysis/results")}>
+            <ArrowLeft size={16} /> Back to All Options
+          </Button>
+        </div>
+      </StickyFooter>
     </AppShell>
   );
 }

@@ -8,6 +8,9 @@ import {
   Card,
   Button,
   Badge,
+  SectionHeader,
+  StickyFooter,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   Info,
@@ -100,14 +103,11 @@ export default function Form843Page() {
       <ScreenContent className="space-y-5 pt-3">
         {/* Guide */}
         <div className="animate-fade-up delay-1">
-          <div className="flex items-start gap-3 p-4 bg-brand-green-light rounded-2xl">
-            <Info size={18} className="text-brand-green shrink-0 mt-0.5" />
-            <p className="text-xs text-brand-green-dark font-semibold leading-relaxed">
-              Form 843 is used to request a refund or abatement of certain
-              penalties and interest. Select the penalty type and provide your
-              reason for abatement.
-            </p>
-          </div>
+          <ContextCard icon={Info} title="Penalty Abatement Request" variant="green">
+            Form 843 is used to request a refund or abatement of certain
+            penalties and interest. Select the penalty type and provide your
+            reason for abatement.
+          </ContextCard>
         </div>
 
         {/* Penalty Type Selection */}
@@ -268,14 +268,13 @@ export default function Form843Page() {
           </div>
         </div>
 
-        {/* Submit */}
-        <div className="animate-fade-up delay-6 pb-2">
-          <Button href="/forms" disabled={!penaltyType}>
-            Submit Claim
-            <ChevronRight size={16} />
-          </Button>
-        </div>
       </ScreenContent>
+      <StickyFooter>
+        <Button href="/forms" disabled={!penaltyType}>
+          Submit Claim
+          <ChevronRight size={16} />
+        </Button>
+      </StickyFooter>
     </AppShell>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { AppShell, ScreenHeader, ScreenContent, Card } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, SectionHeader, ContextCard } from "@/components/ui/shell";
 import { Calculator, DollarSign, Home, TrendingUp, BarChart3, BookOpen } from "lucide-react";
 
 export default function MethodologyPage() {

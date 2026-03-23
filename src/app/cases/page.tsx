@@ -7,6 +7,8 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  EmptyState,
 } from "@/components/ui/shell";
 import { sampleCases, formatCurrency, type TaxCase } from "@/lib/store";
 import { Briefcase, ChevronRight, Inbox } from "lucide-react";
@@ -35,6 +37,11 @@ export default function CasesPage() {
       <ScreenHeader title="My Cases" />
 
       <ScreenContent className="space-y-4 pt-1">
+        {/* Section Header */}
+        <div className="animate-fade-up">
+          <SectionHeader title="Your Cases" subtitle="Track and manage your tax resolution cases" />
+        </div>
+
         {/* Filter Tabs */}
         <div className="animate-fade-up delay-1">
           <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
@@ -42,13 +49,18 @@ export default function CasesPage() {
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 ${
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 border ${
                   filter === f
-                    ? "bg-navy text-white shadow-sm"
-                    : "bg-surface-alt text-muted hover:bg-border hover:text-navy"
+                    ? "bg-brand-blue text-white shadow-[var(--shadow-card)] border-brand-blue"
+                    : "bg-white text-muted border-border hover:border-brand-blue hover:text-brand-blue hover:shadow-[var(--shadow-card)]"
                 }`}
               >
                 {f}
+                {f !== "All" && (
+                  <span className={`ml-1.5 text-[0.5625rem] ${filter === f ? "text-white/70" : "text-placeholder"}`}>
+                    {sampleCases.filter((c) => c.status === f.toLowerCase()).length}
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -56,15 +68,13 @@ export default function CasesPage() {
 
         {/* Case Cards */}
         {filtered.length === 0 ? (
-          <div className="animate-fade-up delay-2 flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-surface-alt flex items-center justify-center mb-4">
-              <Inbox size={28} className="text-placeholder" />
-            </div>
-            <p className="text-sm font-bold text-navy mb-1">No cases found</p>
-            <p className="text-xs text-muted">
-              No {filter.toLowerCase()} cases to display right now.
-            </p>
-          </div>
+          <EmptyState
+            icon={Inbox}
+            title="No cases found"
+            description={`No ${filter.toLowerCase()} cases to display right now. Start a resolution to create your first case.`}
+            actionLabel="Start Resolution"
+            actionHref="/resolve"
+          />
         ) : (
           <div className="space-y-3">
             {filtered.map((c, i) => (

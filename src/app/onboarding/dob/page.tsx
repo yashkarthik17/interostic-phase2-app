@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppShell, ScreenContent, ScreenHeader, ProgressBar, Button } from "@/components/ui/shell";
+import { AppShell, ScreenContent, ScreenHeader, ProgressBar, Button, Card, StickyFooter } from "@/components/ui/shell";
 import { setStore } from "@/lib/store";
 
 const months = [
@@ -23,7 +23,9 @@ function SelectField({ label, value, onChange, options, placeholder }: {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-3 bg-surface-alt border-[1.5px] border-border rounded-xl text-sm font-medium text-navy focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 transition-all duration-150 appearance-none"
+        className={`w-full px-3 py-3 bg-surface-alt border-[1.5px] border-border rounded-xl text-sm font-medium transition-all duration-150 appearance-none hover:border-border-strong focus:border-brand-blue focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10 ${
+          value ? "text-navy" : "text-placeholder"
+        }`}
         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 12px center" }}
       >
         <option value="" disabled>{placeholder}</option>
@@ -49,25 +51,31 @@ export default function DOBPage() {
   return (
     <AppShell hideNav>
       <ScreenHeader title="Personal Info" backHref="/onboarding/name" />
-      <ProgressBar value={25} steps="Step 2 of 8" />
+      <ProgressBar value={25} steps="Step 2 of 8" label="Date of Birth" />
       <ScreenContent className="py-4">
         <div className="animate-fade-up delay-1 mb-6">
           <h2 className="text-xl font-bold text-navy">Date of Birth</h2>
           <p className="text-sm text-muted mt-1">Required for IRS verification</p>
         </div>
 
-        <div className="animate-fade-up delay-2 flex gap-3 mb-8">
-          <SelectField label="Month" value={month} onChange={setMonth} options={months} placeholder="Month" />
-          <SelectField label="Day" value={day} onChange={setDay} options={days} placeholder="Day" />
-          <SelectField label="Year" value={year} onChange={setYear} options={years} placeholder="Year" />
+        <div className="animate-fade-up delay-2">
+          <Card className="!p-6">
+            <div className="flex gap-3">
+              <SelectField label="Month" value={month} onChange={setMonth} options={months} placeholder="Month" />
+              <SelectField label="Day" value={day} onChange={setDay} options={days} placeholder="Day" />
+              <SelectField label="Year" value={year} onChange={setYear} options={years} placeholder="Year" />
+            </div>
+          </Card>
         </div>
+      </ScreenContent>
 
+      <StickyFooter>
         <div className="animate-fade-up delay-3">
           <Button onClick={handleContinue} disabled={!month || !day || !year}>
             Continue
           </Button>
         </div>
-      </ScreenContent>
+      </StickyFooter>
     </AppShell>
   );
 }

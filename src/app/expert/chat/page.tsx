@@ -118,8 +118,8 @@ export default function ExpertChatPage() {
             <div
               className={`max-w-[80%] px-4 py-3 rounded-2xl ${
                 msg.sender === "user"
-                  ? "bg-navy text-white rounded-br-md"
-                  : "bg-white border border-border text-navy rounded-bl-md"
+                  ? "bg-brand-blue text-white rounded-br-md"
+                  : "bg-brand-blue-50 border border-brand-blue/10 text-navy rounded-bl-md"
               }`}
             >
               <p className="text-[0.8125rem] leading-relaxed">{msg.text}</p>

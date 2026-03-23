@@ -5,6 +5,8 @@ import {
   ScreenHeader,
   ScreenContent,
   IconCircle,
+  Card,
+  SectionHeader,
 } from "@/components/ui/shell";
 import {
   PauseCircle,
@@ -63,6 +65,7 @@ export default function ReliefPage() {
           Beyond installment agreements and offers in compromise, the IRS provides
           several other relief options. Find the one that fits your situation.
         </p>
+        <SectionHeader title="Relief Options" subtitle="Select the option that fits your situation" />
 
         {reliefOptions.map((item, i) => (
           <Link

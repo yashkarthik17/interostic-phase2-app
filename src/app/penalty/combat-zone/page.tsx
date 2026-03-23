@@ -5,6 +5,8 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Sword, CheckCircle2, Clock, Shield, Info } from "lucide-react";
 
@@ -38,19 +40,11 @@ export default function CombatZonePage() {
         </p>
 
         <div className="animate-fade-up delay-1">
-          <Card className="!bg-navy-light !border-transparent">
-            <div className="flex items-start gap-3">
-              <Shield size={20} className="text-navy shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-bold text-navy">Automatic Relief</p>
-                <p className="text-xs text-navy/70 mt-1 leading-relaxed">
-                  You typically do not need to request this relief. The IRS uses
-                  Department of Defense records to identify qualifying service
-                  members. However, keeping your own deployment records is important.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <ContextCard icon={Shield} title="Automatic Relief" variant="warm">
+            You typically do not need to request this relief. The IRS uses
+            Department of Defense records to identify qualifying service
+            members. However, keeping your own deployment records is important.
+          </ContextCard>
         </div>
 
         <div className="animate-fade-up delay-2">

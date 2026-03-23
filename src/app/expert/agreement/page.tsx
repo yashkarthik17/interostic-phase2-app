@@ -7,6 +7,8 @@ import {
   Card,
   Button,
   Badge,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   FileText,
@@ -28,14 +30,11 @@ export default function ExpertAgreementPage() {
       <ScreenContent className="space-y-5 pt-2">
         {/* Intro */}
         <div className="animate-fade-up delay-1">
-          <div className="flex items-start gap-3 p-4 bg-info-light rounded-2xl">
-            <Info size={18} className="text-info shrink-0 mt-0.5" />
-            <p className="text-xs text-info font-semibold leading-relaxed">
-              Before we begin, your expert needs authorization to represent you
-              before the IRS. These are standard IRS forms used by all tax
-              professionals.
-            </p>
-          </div>
+          <ContextCard icon={Info} title="Authorization Required" variant="blue">
+            Before we begin, your expert needs authorization to represent you
+            before the IRS. These are standard IRS forms used by all tax
+            professionals.
+          </ContextCard>
         </div>
 
         {/* Form 2848 Card */}

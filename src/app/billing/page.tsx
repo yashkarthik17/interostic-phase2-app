@@ -7,6 +7,7 @@ import {
   Card,
   Badge,
   IconCircle,
+  SectionHeader,
 } from "@/components/ui/shell";
 import {
   CreditCard,
@@ -73,15 +74,13 @@ export default function BillingPage() {
 
         {/* Quick Links */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Manage
-          </p>
+          <SectionHeader title="Manage" subtitle="Your billing options" />
           <div className="grid grid-cols-2 gap-3">
             {quickLinks.map(({ label, href, icon, color }) => (
               <Link
                 key={href}
                 href={href}
-                className="flex flex-col items-center gap-2.5 p-4 bg-white border border-border rounded-2xl transition-all duration-200 hover:border-border-strong hover:shadow-md hover:-translate-y-0.5 active:scale-[0.97]"
+                className="flex flex-col items-center gap-2.5 p-4 bg-white border border-border rounded-2xl shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]"
               >
                 <IconCircle icon={icon} color={color} size={44} />
                 <span className="text-xs font-bold text-navy">{label}</span>
@@ -92,9 +91,7 @@ export default function BillingPage() {
 
         {/* Recent Charges */}
         <div className="animate-fade-up delay-3">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Recent Charges
-          </p>
+          <SectionHeader title="Recent Charges" accent="green" />
           <Card className="!p-0 divide-y divide-border">
             {recentCharges.map((charge, i) => (
               <div key={i} className="flex items-center gap-3.5 px-5 py-3.5">

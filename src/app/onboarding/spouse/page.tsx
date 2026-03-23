@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppShell, ScreenContent, ScreenHeader, ProgressBar, FormInput, Button } from "@/components/ui/shell";
+import { AppShell, ScreenContent, ScreenHeader, ProgressBar, FormInput, Button, Card, StickyFooter, ContextCard } from "@/components/ui/shell";
+import { Info } from "lucide-react";
 import { setStore } from "@/lib/store";
 
 export default function SpousePage() {
@@ -34,34 +35,48 @@ export default function SpousePage() {
           <p className="text-sm text-muted mt-1">Required for joint filing</p>
         </div>
 
-        <div className="animate-fade-up delay-2 space-y-4 mb-8">
-          <FormInput
-            label="Spouse Full Name"
-            placeholder="Jane Smith"
-            value={name}
-            onChange={setName}
-          />
-          <FormInput
-            label="Spouse SSN"
-            placeholder="123-45-6789"
-            value={ssn}
-            onChange={(v) => setSSN(formatSSN(v))}
-          />
-          <FormInput
-            label="Spouse Date of Birth"
-            type="date"
-            placeholder="MM/DD/YYYY"
-            value={dob}
-            onChange={setDOB}
-          />
+        <div className="animate-fade-up delay-2 mb-6">
+          <ContextCard icon={Info} title="Why do we need this?" variant="blue">
+            For joint filings, the IRS requires both spouses' information on all resolution paperwork.
+          </ContextCard>
         </div>
 
         <div className="animate-fade-up delay-3">
+          <Card className="!p-6">
+            <div className="space-y-4">
+              <FormInput
+                label="Spouse Full Name"
+                placeholder="Jane Smith"
+                value={name}
+                onChange={setName}
+                required
+              />
+              <FormInput
+                label="Spouse SSN"
+                placeholder="123-45-6789"
+                value={ssn}
+                onChange={(v) => setSSN(formatSSN(v))}
+                hint="Kept encrypted and secure"
+              />
+              <FormInput
+                label="Spouse Date of Birth"
+                type="date"
+                placeholder="MM/DD/YYYY"
+                value={dob}
+                onChange={setDOB}
+              />
+            </div>
+          </Card>
+        </div>
+      </ScreenContent>
+
+      <StickyFooter>
+        <div className="animate-fade-up delay-4">
           <Button onClick={handleContinue} disabled={!name}>
             Continue
           </Button>
         </div>
-      </ScreenContent>
+      </StickyFooter>
     </AppShell>
   );
 }

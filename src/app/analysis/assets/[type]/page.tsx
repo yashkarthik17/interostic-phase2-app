@@ -1,14 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Plus, Trash2, Landmark, TrendingUp, PiggyBank, Home, Car, Heart, Bitcoin, Package, ArrowLeft } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, Card, Button, FormInput } from "@/components/ui/shell";
+import { Plus, Trash2, Landmark, TrendingUp, PiggyBank, Home, Car, Heart, Bitcoin, Package, ArrowLeft, Save } from "lucide-react";
+import { AppShell, ScreenHeader, ScreenContent, Card, Button, FormInput, SectionHeader, StickyFooter } from "@/components/ui/shell";
 import { getStore, setStore, formatCurrency } from "@/lib/store";
 
-const categoryMeta: Record<string, { label: string; icon: React.ElementType; fields: { key: string; label: string; placeholder: string; type?: string }[] }> = {
+const categoryMeta: Record<string, { label: string; icon: React.ElementType; color: string; bg: string; fields: { key: string; label: string; placeholder: string; type?: string }[] }> = {
   "bank-accounts": {
     label: "Bank Accounts",
     icon: Landmark,
+    color: "text-brand-blue",
+    bg: "bg-gradient-to-br from-brand-blue-50 to-brand-blue-light",
     fields: [
       { key: "institution", label: "Institution Name", placeholder: "Chase, Bank of America..." },
       { key: "accountType", label: "Account Type", placeholder: "Checking, Savings..." },
@@ -18,6 +20,8 @@ const categoryMeta: Record<string, { label: string; icon: React.ElementType; fie
   investments: {
     label: "Investments",
     icon: TrendingUp,
+    color: "text-violet",
+    bg: "bg-gradient-to-br from-violet-light to-violet-light/60",
     fields: [
       { key: "institution", label: "Brokerage", placeholder: "Fidelity, Schwab..." },
       { key: "accountType", label: "Account Type", placeholder: "Brokerage, Mutual Fund..." },
@@ -27,6 +31,8 @@ const categoryMeta: Record<string, { label: string; icon: React.ElementType; fie
   retirement: {
     label: "Retirement Accounts",
     icon: PiggyBank,
+    color: "text-teal",
+    bg: "bg-gradient-to-br from-teal-light to-teal-light/60",
     fields: [
       { key: "institution", label: "Plan Provider", placeholder: "Fidelity, Vanguard..." },
       { key: "accountType", label: "Account Type", placeholder: "401(k), IRA, Roth IRA..." },
@@ -36,6 +42,8 @@ const categoryMeta: Record<string, { label: string; icon: React.ElementType; fie
   "real-estate": {
     label: "Real Estate",
     icon: Home,
+    color: "text-brand-green",
+    bg: "bg-gradient-to-br from-brand-green-50 to-brand-green-light",
     fields: [
       { key: "address", label: "Property Address", placeholder: "123 Main St..." },
       { key: "propertyType", label: "Property Type", placeholder: "Primary Residence, Rental..." },
@@ -46,6 +54,8 @@ const categoryMeta: Record<string, { label: string; icon: React.ElementType; fie
   vehicles: {
     label: "Vehicles",
     icon: Car,
+    color: "text-warning",
+    bg: "bg-gradient-to-br from-warning-light to-warning-light/60",
     fields: [
       { key: "description", label: "Year / Make / Model", placeholder: "2020 Toyota Camry" },
       { key: "balance", label: "Current Value", placeholder: "$18,000", type: "text" },
@@ -55,6 +65,8 @@ const categoryMeta: Record<string, { label: string; icon: React.ElementType; fie
   "life-insurance": {
     label: "Life Insurance",
     icon: Heart,
+    color: "text-brand-red",
+    bg: "bg-gradient-to-br from-brand-red-50 to-brand-red-light",
     fields: [
       { key: "provider", label: "Insurance Provider", placeholder: "MetLife, Prudential..." },
       { key: "policyType", label: "Policy Type", placeholder: "Whole Life, Term..." },
@@ -64,6 +76,8 @@ const categoryMeta: Record<string, { label: string; icon: React.ElementType; fie
   crypto: {
     label: "Cryptocurrency",
     icon: Bitcoin,
+    color: "text-info",
+    bg: "bg-gradient-to-br from-info-light to-info-light/60",
     fields: [
       { key: "exchange", label: "Exchange / Wallet", placeholder: "Coinbase, Ledger..." },
       { key: "holdings", label: "Holdings", placeholder: "BTC, ETH..." },
@@ -73,6 +87,8 @@ const categoryMeta: Record<string, { label: string; icon: React.ElementType; fie
   other: {
     label: "Other Assets",
     icon: Package,
+    color: "text-muted",
+    bg: "bg-gradient-to-br from-surface-alt to-surface-warm",
     fields: [
       { key: "description", label: "Description", placeholder: "Art, jewelry, equipment..." },
       { key: "balance", label: "Estimated Value", placeholder: "$2,000", type: "text" },
@@ -139,9 +155,10 @@ export default function AssetTypePage() {
 
       <ScreenContent>
         <div className="space-y-4 pt-2">
+          {/* Header with colored icon */}
           <div className="animate-fade-up flex items-center gap-3">
-            <div className="flex items-center justify-center w-11 h-11 bg-navy-light rounded-xl">
-              <Icon size={20} className="text-navy" />
+            <div className={`flex items-center justify-center w-12 h-12 ${meta.bg} rounded-xl shadow-[var(--shadow-card)]`}>
+              <Icon size={22} className={meta.color} />
             </div>
             <div>
               <h2 className="text-lg font-black text-navy">{meta.label}</h2>
@@ -153,23 +170,25 @@ export default function AssetTypePage() {
           {items.map((item, i) => (
             <div key={item.id} className={`animate-fade-up delay-${Math.min(i + 1, 6)}`}>
               <Card>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-muted uppercase">Item {i + 1}</span>
                     <button onClick={() => removeItem(item.id)} className="flex items-center gap-1 text-xs font-semibold text-danger hover:text-danger/80 transition-colors">
                       <Trash2 size={12} /> Remove
                     </button>
                   </div>
-                  {meta.fields.map((field) => (
-                    <FormInput
-                      key={field.key}
-                      label={field.label}
-                      placeholder={field.placeholder}
-                      type={field.type || "text"}
-                      value={item[field.key] || ""}
-                      onChange={(v) => updateItem(item.id, field.key, v)}
-                    />
-                  ))}
+                  <div className="space-y-4">
+                    {meta.fields.map((field) => (
+                      <FormInput
+                        key={field.key}
+                        label={field.label}
+                        placeholder={field.placeholder}
+                        type={field.type || "text"}
+                        value={item[field.key] || ""}
+                        onChange={(v) => updateItem(item.id, field.key, v)}
+                      />
+                    ))}
+                  </div>
                 </div>
               </Card>
             </div>
@@ -183,14 +202,16 @@ export default function AssetTypePage() {
             <Plus size={16} /> Add {meta.label.replace(/s$/, "")}
           </button>
 
-          {/* Back */}
-          <div className="pt-2 pb-4">
-            <Button variant="outline" onClick={() => router.push("/analysis/assets")}>
-              <ArrowLeft size={16} /> Back to Overview
-            </Button>
-          </div>
+          {/* Spacer */}
+          <div className="h-4" />
         </div>
       </ScreenContent>
+
+      <StickyFooter>
+        <Button variant="outline" onClick={() => router.push("/analysis/assets")}>
+          <Save size={16} /> Save & Back to Overview
+        </Button>
+      </StickyFooter>
     </AppShell>
   );
 }

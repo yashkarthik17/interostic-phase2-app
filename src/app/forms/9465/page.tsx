@@ -9,6 +9,9 @@ import {
   Button,
   FormInput,
   Badge,
+  SectionHeader,
+  StickyFooter,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   Lock,
@@ -48,13 +51,10 @@ export default function Form9465Page() {
       <ScreenContent className="space-y-5 pt-3">
         {/* Guide */}
         <div className="animate-fade-up delay-1">
-          <div className="flex items-start gap-3 p-4 bg-brand-green-light rounded-2xl">
-            <Info size={18} className="text-brand-green shrink-0 mt-0.5" />
-            <p className="text-xs text-brand-green-dark font-semibold leading-relaxed">
-              This form requests a monthly installment plan to pay your tax debt
-              over time. We&apos;ve pre-filled your information to make it easy.
-            </p>
-          </div>
+          <ContextCard icon={Info} title="Guided Form" variant="green">
+            This form requests a monthly installment plan to pay your tax debt
+            over time. We&apos;ve pre-filled your information to make it easy.
+          </ContextCard>
         </div>
 
         {/* Taxpayer Info (Pre-filled) */}
@@ -293,14 +293,13 @@ export default function Form9465Page() {
           </div>
         )}
 
-        {/* Submit */}
-        <div className="animate-fade-up delay-5 pb-2">
-          <Button href="/forms">
-            Submit Request
-            <ChevronRight size={16} />
-          </Button>
-        </div>
       </ScreenContent>
+      <StickyFooter>
+        <Button href="/forms">
+          Submit Request
+          <ChevronRight size={16} />
+        </Button>
+      </StickyFooter>
     </AppShell>
   );
 }

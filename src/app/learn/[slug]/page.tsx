@@ -9,6 +9,8 @@ import {
   Badge,
   Card,
   Button,
+  ContextCard,
+  SectionHeader,
 } from "@/components/ui/shell";
 
 import {
@@ -20,6 +22,8 @@ import {
   Calendar,
   AlertCircle,
   CheckCircle2,
+  Info,
+  AlertTriangle,
 } from "lucide-react";
 
 interface ArticleData {
@@ -383,6 +387,19 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
     .map((s) => allArticles.find((a) => a.slug === s))
     .filter(Boolean) as typeof allArticles;
 
+  /* Map callout variants to ContextCard variants */
+  const calloutToContextVariant: Record<string, "blue" | "green" | "red" | "warm"> = {
+    info: "blue",
+    warning: "warm",
+    success: "green",
+  };
+
+  const calloutIcons: Record<string, React.ElementType> = {
+    info: Info,
+    warning: AlertTriangle,
+    success: CheckCircle2,
+  };
+
   return (
     <AppShell>
       <ScreenHeader title="Article" backHref="/learn" />
@@ -445,42 +462,18 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
               );
             }
             if (section.type === "callout") {
-              const calloutStyles = {
-                info: {
-                  bg: "bg-info-light",
-                  border: "border-info/20",
-                  icon: AlertCircle,
-                  iconColor: "text-info",
-                },
-                warning: {
-                  bg: "bg-warning-light",
-                  border: "border-warning/20",
-                  icon: AlertCircle,
-                  iconColor: "text-warning",
-                },
-                success: {
-                  bg: "bg-success-light",
-                  border: "border-success/20",
-                  icon: CheckCircle2,
-                  iconColor: "text-success",
-                },
-              };
-              const style =
-                calloutStyles[section.variant || "info"] || calloutStyles.info;
-              const CalloutIcon = style.icon;
+              const variant = section.variant || "info";
+              const contextVariant = calloutToContextVariant[variant] || "blue";
+              const CalloutIcon = calloutIcons[variant] || Info;
               return (
-                <div
+                <ContextCard
                   key={i}
-                  className={`flex items-start gap-3 p-4 rounded-xl border ${style.bg} ${style.border}`}
+                  icon={CalloutIcon}
+                  title={variant === "warning" ? "Important" : variant === "success" ? "Good to know" : "Note"}
+                  variant={contextVariant}
                 >
-                  <CalloutIcon
-                    size={16}
-                    className={`${style.iconColor} shrink-0 mt-0.5`}
-                  />
-                  <p className="text-sm text-navy/80 leading-relaxed">
-                    {section.text}
-                  </p>
-                </div>
+                  {section.text}
+                </ContextCard>
               );
             }
             return null;
@@ -498,8 +491,8 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                 onClick={() => setFeedback("up")}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 active:scale-[0.95] ${
                   feedback === "up"
-                    ? "bg-brand-green text-white"
-                    : "bg-surface-alt text-muted hover:text-brand-green hover:border-brand-green border border-border"
+                    ? "bg-brand-green text-white shadow-[var(--shadow-card)]"
+                    : "bg-surface-alt text-muted hover:text-brand-green hover:border-brand-green border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)]"
                 }`}
               >
                 <ThumbsUp size={16} />
@@ -509,8 +502,8 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                 onClick={() => setFeedback("down")}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 active:scale-[0.95] ${
                   feedback === "down"
-                    ? "bg-brand-red text-white"
-                    : "bg-surface-alt text-muted hover:text-brand-red hover:border-brand-red border border-border"
+                    ? "bg-brand-red text-white shadow-[var(--shadow-card)]"
+                    : "bg-surface-alt text-muted hover:text-brand-red hover:border-brand-red border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)]"
                 }`}
               >
                 <ThumbsDown size={16} />
@@ -528,15 +521,13 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
         {/* Related articles */}
         {related.length > 0 && (
           <div className="animate-fade-up delay-4">
-            <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-              Related Articles
-            </p>
+            <SectionHeader title="Related Articles" accent="blue" />
             <div className="space-y-2">
               {related.map((r) => (
                 <Link
                   key={r.slug}
                   href={`/learn/${r.slug}`}
-                  className="flex items-center gap-3 p-3.5 bg-white border border-border rounded-xl transition-all duration-200 hover:border-border-strong hover:shadow-sm active:scale-[0.99]"
+                  className="flex items-center gap-3 p-3.5 bg-white border border-border rounded-xl shadow-[var(--shadow-card)] transition-all duration-200 hover:shadow-[var(--shadow-lift)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[var(--shadow-card)] active:scale-[0.99]"
                 >
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-bold text-navy truncate">
@@ -553,7 +544,6 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
           </div>
         )}
       </ScreenContent>
-
     </AppShell>
   );
 }

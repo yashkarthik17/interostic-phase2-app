@@ -42,7 +42,7 @@ export default function PaywallPage() {
             {proFeatures.map((feat) => (
               <div key={feat.label} className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-green-light shrink-0">
-                  <feat.icon size={15} className="text-brand-green" />
+                  <Check size={15} className="text-brand-green" strokeWidth={3} />
                 </div>
                 <span className="text-sm font-medium text-navy">{feat.label}</span>
               </div>

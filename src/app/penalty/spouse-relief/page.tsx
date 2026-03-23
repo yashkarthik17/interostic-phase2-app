@@ -8,6 +8,8 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Users, ChevronDown, CheckCircle2, AlertTriangle, FileText, ChevronRight } from "lucide-react";
 
@@ -68,19 +70,11 @@ export default function SpouseReliefPage() {
         </p>
 
         <div className="animate-fade-up delay-1">
-          <Card className="!bg-info-light !border-transparent">
-            <div className="flex items-start gap-3">
-              <FileText size={18} className="text-info shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-bold text-info">Form 8857</p>
-                <p className="text-xs text-info/80 mt-1 leading-relaxed">
-                  All three types of spouse relief are requested using Form 8857,
-                  Request for Innocent Spouse Relief. You generally must file within
-                  2 years of the first IRS collection activity.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <ContextCard icon={FileText} title="Form 8857 Required" variant="blue">
+            All three types of spouse relief are requested using Form 8857,
+            Request for Innocent Spouse Relief. You generally must file within
+            2 years of the first IRS collection activity.
+          </ContextCard>
         </div>
 
         <div className="space-y-3">

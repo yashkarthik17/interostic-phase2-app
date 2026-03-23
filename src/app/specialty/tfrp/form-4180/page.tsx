@@ -5,6 +5,8 @@ import {
   ScreenHeader,
   ScreenContent,
   Card,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { FileText, AlertTriangle, ChevronDown, CheckCircle2, Info } from "lucide-react";
 
@@ -81,19 +83,11 @@ export default function Form4180Page() {
         </p>
 
         <div className="animate-fade-up delay-1">
-          <Card className="!bg-danger-light !border-transparent">
-            <div className="flex items-start gap-3">
-              <AlertTriangle size={18} className="text-danger shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-bold text-danger">Get Professional Help</p>
-                <p className="text-xs text-danger/80 mt-1 leading-relaxed">
-                  Do not go to a Form 4180 interview alone. The answers you give
-                  are used as evidence. A tax professional or attorney can represent
-                  you and help protect your rights.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <ContextCard icon={AlertTriangle} title="Get Professional Help" variant="red">
+            Do not go to a Form 4180 interview alone. The answers you give
+            are used as evidence. A tax professional or attorney can represent
+            you and help protect your rights.
+          </ContextCard>
         </div>
 
         <div className="space-y-3">

@@ -11,6 +11,8 @@ import {
   Button,
   FormInput,
   IconCircle,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { defaultProfile } from "@/lib/store";
 import {
@@ -170,9 +172,7 @@ export default function TaxFilingYearPage({
 
         {/* Filing Sections Navigation */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Filing Sections
-          </p>
+          <SectionHeader title="Filing Sections" subtitle={`${completedCount} of ${sections.length} sections complete`} />
           <Card className="!p-0 divide-y divide-border overflow-hidden">
             {sections.map((section) => (
               <Link
@@ -219,13 +219,9 @@ export default function TaxFilingYearPage({
 
         {/* Security note */}
         <div className="animate-fade-up delay-3">
-          <div className="flex items-center gap-3 px-4 py-3 bg-brand-green-light rounded-xl">
-            <Lock size={16} className="text-brand-green shrink-0" />
-            <p className="text-xs text-brand-green-dark font-semibold">
-              Your data is encrypted and never shared without your
-              consent.
-            </p>
-          </div>
+          <ContextCard icon={Lock} title="Your Data is Secure" variant="green">
+            Your data is encrypted and never shared without your consent. All filings are transmitted securely.
+          </ContextCard>
         </div>
       </ScreenContent>
     </AppShell>

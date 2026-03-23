@@ -9,6 +9,9 @@ import {
   Button,
   FormInput,
   Badge,
+  SectionHeader,
+  StickyFooter,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   Lock,
@@ -44,21 +47,16 @@ export default function Form656Page() {
       <ScreenContent className="space-y-5 pt-3">
         {/* Guide Banner */}
         <div className="animate-fade-up delay-1">
-          <div className="flex items-start gap-3 p-4 bg-brand-green-light rounded-2xl">
-            <Info size={18} className="text-brand-green shrink-0 mt-0.5" />
-            <p className="text-xs text-brand-green-dark font-semibold leading-relaxed">
-              We&apos;ve pre-filled your information from your profile and analysis.
-              Locked fields are pulled from IRS transcripts. Review and complete
-              the remaining fields.
-            </p>
-          </div>
+          <ContextCard icon={Info} title="Pre-filled Information" variant="green">
+            We&apos;ve pre-filled your information from your profile and analysis.
+            Locked fields are pulled from IRS transcripts. Review and complete
+            the remaining fields.
+          </ContextCard>
         </div>
 
         {/* Taxpayer Info (Pre-filled / Locked) */}
         <div className="animate-fade-up delay-2">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-2.5">
-            Taxpayer Information
-          </p>
+          <SectionHeader title="Taxpayer Information" subtitle="Verified from your profile" />
           <Card className="space-y-3">
             {/* Locked fields */}
             {[
@@ -365,14 +363,13 @@ export default function Form656Page() {
           </Card>
         </div>
 
-        {/* Submit */}
-        <div className="animate-fade-up delay-6 pb-2">
-          <Button href="/forms">
-            Save &amp; Continue
-            <ChevronRight size={16} />
-          </Button>
-        </div>
       </ScreenContent>
+      <StickyFooter>
+        <Button href="/forms">
+          Save &amp; Continue
+          <ChevronRight size={16} />
+        </Button>
+      </StickyFooter>
     </AppShell>
   );
 }

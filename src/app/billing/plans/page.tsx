@@ -130,15 +130,15 @@ export default function PlansPage() {
               <div
                 className={`relative rounded-2xl border-[1.5px] p-5 transition-all duration-300 ${
                   plan.recommended
-                    ? "border-brand-green bg-white shadow-lg shadow-brand-green/5"
-                    : "border-border bg-white"
+                    ? "border-brand-blue bg-white shadow-[var(--shadow-glow-blue)] ring-2 ring-brand-blue/15"
+                    : "border-border bg-white shadow-[var(--shadow-card)]"
                 }`}
               >
                 {plan.recommended && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-brand-green text-white text-[0.625rem] font-bold uppercase tracking-wider">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-brand-blue to-brand-blue/80 text-white text-[0.625rem] font-bold uppercase tracking-wider shadow-[var(--shadow-card)]">
                       <Crown size={11} />
-                      Recommended
+                      Most Popular
                     </span>
                   </div>
                 )}
@@ -169,7 +169,9 @@ export default function PlansPage() {
                 <ul className="space-y-2.5 mb-5">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2.5">
-                      <Check size={15} className="text-brand-green mt-0.5 shrink-0" />
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-green-light shrink-0 mt-0.5">
+                        <Check size={12} className="text-brand-green" strokeWidth={3} />
+                      </div>
                       <span className="text-sm text-navy/80">{feature}</span>
                     </li>
                   ))}

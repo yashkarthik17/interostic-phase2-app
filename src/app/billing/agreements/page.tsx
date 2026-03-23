@@ -4,6 +4,8 @@ import {
   ScreenHeader,
   ScreenContent,
   Card,
+  IconCircle,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { FileText, ChevronRight, Scale, Shield, BookOpen } from "lucide-react";
 
@@ -52,9 +54,7 @@ export default function AgreementsPage() {
 
       <ScreenContent className="space-y-4 pt-2">
         <div className="animate-fade-up delay-1">
-          <p className="text-sm text-muted mb-4">
-            Review the legal agreements that govern your use of our services.
-          </p>
+          <SectionHeader title="Legal Documents" subtitle="Review the agreements that govern your use of our services" />
 
           <Card className="!p-0 divide-y divide-border">
             {agreements.map((agreement) => (
@@ -63,9 +63,7 @@ export default function AgreementsPage() {
                 type="button"
                 className="flex items-center gap-3.5 px-5 py-4 w-full text-left hover:bg-surface-alt transition-colors"
               >
-                <div className={`flex items-center justify-center w-10 h-10 rounded-xl bg-navy-light`}>
-                  <agreement.icon size={18} className="text-brand-blue" />
-                </div>
+                <IconCircle icon={agreement.icon} color={agreement.color} size={40} />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-navy">{agreement.title}</p>
                   <p className="text-xs text-muted truncate">{agreement.description}</p>

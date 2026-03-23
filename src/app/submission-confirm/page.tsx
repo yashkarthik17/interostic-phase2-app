@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, Card, Badge, Button, SectionHeader, ContextCard } from "@/components/ui/shell";
 import { FileText, CheckCircle2, MapPin, Clock, Send, AlertTriangle } from "lucide-react";
 
 const submissionItems = [

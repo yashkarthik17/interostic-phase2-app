@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, HelpCircle, Check, X, Minus } from "lucide-react";
-import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Button } from "@/components/ui/shell";
+import { AppShell, ScreenHeader, ScreenContent, ProgressBar, Button, StickyFooter } from "@/components/ui/shell";
 import { getStore, setStore } from "@/lib/store";
 
 interface Question {
@@ -32,10 +32,10 @@ const questions: Question[] = [
 
 type Answer = "yes" | "no" | "unsure";
 
-const answerOptions: { value: Answer; label: string; icon: typeof Check; color: string; activeBg: string; activeBorder: string }[] = [
-  { value: "yes", label: "Yes", icon: Check, color: "text-brand-green", activeBg: "bg-brand-green-light", activeBorder: "border-brand-green" },
-  { value: "no", label: "No", icon: X, color: "text-brand-red", activeBg: "bg-brand-red-light", activeBorder: "border-brand-red" },
-  { value: "unsure", label: "Unsure", icon: Minus, color: "text-warning", activeBg: "bg-warning-light", activeBorder: "border-warning" },
+const answerOptions: { value: Answer; label: string; icon: typeof Check; color: string; activeBg: string; activeBorder: string; cardBg: string }[] = [
+  { value: "yes", label: "Yes", icon: Check, color: "text-brand-green", activeBg: "bg-brand-green-light", activeBorder: "border-brand-green", cardBg: "bg-brand-green-50" },
+  { value: "no", label: "No", icon: X, color: "text-brand-red", activeBg: "bg-brand-red-light", activeBorder: "border-brand-red", cardBg: "bg-brand-red-50" },
+  { value: "unsure", label: "Unsure", icon: Minus, color: "text-warning", activeBg: "bg-warning-light", activeBorder: "border-warning", cardBg: "bg-warning-light" },
 ];
 
 export default function QuestionsPage() {
@@ -55,6 +55,7 @@ export default function QuestionsPage() {
 
   const q = questions[current];
   const progress = ((current + 1) / questions.length) * 100;
+  const answeredCount = Object.keys(answers).length;
 
   const saveAnswers = useCallback(
     (updated: Record<string, string>) => {
@@ -99,6 +100,10 @@ export default function QuestionsPage() {
 
   if (!mounted) return null;
 
+  // Determine background tint based on current answer
+  const currentAnswer = answers[q.id] as Answer | undefined;
+  const answerConfig = currentAnswer ? answerOptions.find(o => o.value === currentAnswer) : undefined;
+
   return (
     <AppShell hideNav>
       <ScreenHeader title="Preliminary Questions" backHref="/analysis/welcome" />
@@ -106,7 +111,7 @@ export default function QuestionsPage() {
 
       <ScreenContent className="flex flex-col">
         <div className="flex-1 flex flex-col justify-center py-6">
-          {/* Question */}
+          {/* Question Card */}
           <div
             className={`transition-all duration-200 ${
               animating
@@ -116,10 +121,19 @@ export default function QuestionsPage() {
                 : "opacity-100 translate-x-0"
             }`}
           >
-            <div className="mb-2">
+            {/* Question number + counter */}
+            <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-brand-blue">Question {current + 1}</span>
+              <span className="text-[10px] font-semibold text-muted bg-surface-alt px-2 py-0.5 rounded-full">
+                {answeredCount}/{questions.length} answered
+              </span>
             </div>
-            <h2 className="text-xl font-black text-navy leading-tight mb-6">{q.text}</h2>
+
+            <div className={`rounded-2xl p-5 mb-6 transition-colors duration-300 ${
+              answerConfig ? answerConfig.cardBg : "bg-surface-alt"
+            }`}>
+              <h2 className="text-xl font-black text-navy leading-tight">{q.text}</h2>
+            </div>
 
             {/* Answer Options */}
             <div className="space-y-3 mb-6">
@@ -129,7 +143,7 @@ export default function QuestionsPage() {
                   <button
                     key={opt.value}
                     onClick={() => handleAnswer(opt.value)}
-                    className={`w-full flex items-center gap-4 p-4 rounded-2xl border-[1.5px] transition-all duration-200 active:scale-[0.98] ${
+                    className={`w-full flex items-center gap-4 p-4 rounded-2xl border-[1.5px] transition-all duration-200 active:scale-[0.98] shadow-[var(--shadow-card)] ${
                       selected
                         ? `${opt.activeBorder} ${opt.activeBg}`
                         : "border-border bg-white hover:border-border-strong"
@@ -144,7 +158,7 @@ export default function QuestionsPage() {
                     </div>
                     <span className={`text-sm font-bold ${selected ? "text-navy" : "text-muted"}`}>{opt.label}</span>
                     <div
-                      className={`ml-auto w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                      className={`ml-auto w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
                         selected ? `${opt.activeBorder} bg-current` : "border-border-strong"
                       }`}
                     >
@@ -155,29 +169,36 @@ export default function QuestionsPage() {
               })}
             </div>
 
-            {/* Why do we ask */}
+            {/* Why do we ask - smooth animation */}
             <button
               onClick={() => setShowWhy(!showWhy)}
               className="flex items-center gap-2 text-xs font-semibold text-muted hover:text-navy transition-colors mb-2"
             >
               <HelpCircle size={14} />
-              Why do we ask?
+              <span>Why do we ask?</span>
+              <ChevronRight size={12} className={`transition-transform duration-200 ${showWhy ? "rotate-90" : ""}`} />
             </button>
-            {showWhy && (
-              <div className="bg-navy-light rounded-xl p-4 mb-2 animate-fade-up">
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                showWhy ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="bg-gradient-to-br from-brand-blue-50 to-brand-blue-light/60 border border-brand-blue/15 rounded-xl p-4 mb-2">
                 <p className="text-xs text-navy leading-relaxed">{q.why}</p>
               </div>
-            )}
+            </div>
           </div>
         </div>
+      </ScreenContent>
 
-        {/* Navigation */}
-        <div className="flex items-center gap-3 pt-4 pb-4">
+      {/* Navigation - StickyFooter */}
+      <StickyFooter>
+        <div className="flex items-center gap-3">
           <button
             onClick={goPrev}
             disabled={current === 0}
-            className={`flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-border-strong transition-all duration-200 ${
-              current === 0 ? "opacity-30 pointer-events-none" : "hover:border-navy active:scale-95"
+            className={`flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-border-strong transition-all duration-200 shrink-0 ${
+              current === 0 ? "opacity-30 pointer-events-none" : "hover:border-navy active:scale-95 shadow-[var(--shadow-card)]"
             }`}
           >
             <ChevronLeft size={18} className="text-navy" />
@@ -189,7 +210,7 @@ export default function QuestionsPage() {
             </Button>
           </div>
         </div>
-      </ScreenContent>
+      </StickyFooter>
     </AppShell>
   );
 }

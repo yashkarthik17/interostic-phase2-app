@@ -6,6 +6,8 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Link2, ChevronDown, CheckCircle2, Clock, FileText, Info } from "lucide-react";
 

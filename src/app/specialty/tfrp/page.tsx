@@ -9,6 +9,8 @@ import {
   Badge,
   Button,
   IconCircle,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import {
   Building2,
@@ -51,21 +53,11 @@ export default function TfrpPage() {
       <ScreenContent className="space-y-4 pt-1">
         {/* Warning Banner */}
         <div className="animate-fade-up">
-          <Card className="!bg-danger-light !border-transparent">
-            <div className="flex items-start gap-3">
-              <AlertTriangle size={20} className="text-danger shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-bold text-danger">
-                  Personal Liability for Payroll Taxes
-                </p>
-                <p className="text-xs text-danger/80 mt-1 leading-relaxed">
-                  The TFRP makes you personally liable for unpaid trust fund taxes,
-                  even if your business is a corporation or LLC. This debt follows
-                  you individually.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <ContextCard icon={AlertTriangle} title="Personal Liability for Payroll Taxes" variant="red">
+            The TFRP makes you personally liable for unpaid trust fund taxes,
+            even if your business is a corporation or LLC. This debt follows
+            you individually.
+          </ContextCard>
         </div>
 
         {/* What Are Trust Fund Taxes */}

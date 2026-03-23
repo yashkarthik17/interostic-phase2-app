@@ -6,6 +6,8 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Plane, AlertTriangle, CheckCircle2, DollarSign, Clock, Info } from "lucide-react";
 import { formatCurrency } from "@/lib/store";
@@ -48,19 +50,11 @@ export default function PassportPage() {
 
         {/* Warning */}
         <div className="animate-fade-up delay-1">
-          <Card className="!bg-danger-light !border-transparent">
-            <div className="flex items-start gap-3">
-              <AlertTriangle size={20} className="text-danger shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-bold text-danger">Serious Consequence</p>
-                <p className="text-xs text-danger/80 mt-1 leading-relaxed">
-                  If your tax debt is certified, the State Department will not issue
-                  or renew your passport. If you are abroad, they may issue a
-                  limited passport only for return to the U.S.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <ContextCard icon={AlertTriangle} title="Serious Consequence" variant="red">
+            If your tax debt is certified, the State Department will not issue
+            or renew your passport. If you are abroad, they may issue a
+            limited passport only for return to the U.S.
+          </ContextCard>
         </div>
 
         {/* What Triggers */}

@@ -6,6 +6,8 @@ import {
   ScreenContent,
   Card,
   Badge,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Scale, ChevronDown, BookOpen } from "lucide-react";
 
@@ -69,13 +71,10 @@ export default function StatutoryPage() {
         </p>
 
         <div className="animate-fade-up delay-1">
-          <div className="flex items-center gap-2 p-3 bg-info-light rounded-xl mb-4">
-            <BookOpen size={16} className="text-info shrink-0" />
-            <p className="text-xs font-semibold text-info">
-              These provisions come directly from the Internal Revenue Code. Having
-              statutory authority makes your case stronger.
-            </p>
-          </div>
+          <ContextCard icon={BookOpen} title="Statutory Authority" variant="blue">
+            These provisions come directly from the Internal Revenue Code. Having
+            statutory authority makes your case stronger.
+          </ContextCard>
         </div>
 
         <div className="space-y-3">

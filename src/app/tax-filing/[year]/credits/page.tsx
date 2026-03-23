@@ -8,6 +8,7 @@ import {
   ProgressBar,
   Card,
   Button,
+  SectionHeader,
 } from "@/components/ui/shell";
 import { formatCurrency } from "@/lib/store";
 import { Check, DollarSign, Zap } from "lucide-react";
@@ -90,12 +91,7 @@ export default function CreditsPage({
 
       <ScreenContent className="space-y-4 pt-3">
         <div className="animate-fade-up delay-1">
-          <p className="text-[0.72rem] font-semibold text-muted uppercase tracking-wider mb-1">
-            Available Tax Credits
-          </p>
-          <p className="text-xs text-muted mb-3">
-            Select the credits you may be eligible for in {year}.
-          </p>
+          <SectionHeader title="Available Tax Credits" subtitle={`Select the credits you may be eligible for in ${year}`} accent="green" />
         </div>
 
         {/* Credit checklist */}

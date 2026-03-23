@@ -28,16 +28,16 @@ export default function FilingSuccessPage() {
       <ScreenContent className="flex flex-col items-center justify-center min-h-[80dvh] text-center px-8">
         {/* Animated Checkmark */}
         <div
-          className={`mb-6 transition-all duration-700 ${
+          className={`mb-6 ${
             showCheck
-              ? "opacity-100 scale-100"
+              ? "animate-celebrate"
               : "opacity-0 scale-50"
           }`}
         >
           <div className="relative">
             {/* Outer ring pulse */}
             <div className="absolute inset-0 w-24 h-24 rounded-full bg-brand-green/20 animate-ping" />
-            <div className="relative w-24 h-24 rounded-full bg-brand-green flex items-center justify-center shadow-lg">
+            <div className="relative w-24 h-24 rounded-full bg-brand-green flex items-center justify-center shadow-[var(--shadow-float)]">
               <CheckCircle2
                 size={48}
                 className="text-white"

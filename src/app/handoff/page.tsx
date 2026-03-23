@@ -5,9 +5,12 @@ import {
   ScreenHeader,
   ScreenContent,
   ProgressBar,
+  StepIndicator,
   Card,
   Button,
   Badge,
+  SectionHeader,
+  StickyFooter,
 } from "@/components/ui/shell";
 import {
   CheckCircle2,
@@ -60,11 +63,7 @@ export default function HandoffPage() {
   return (
     <AppShell hideNav>
       <ScreenHeader title="Expert Handoff" backHref="/expert/workspace" />
-      <ProgressBar
-        value={25}
-        steps="Step 1 of 4"
-        label="Document Checklist"
-      />
+      <StepIndicator steps={["Documents", "Review", "Expert", "Accept"]} current={0} />
       <ScreenContent className="space-y-5 pt-3">
         {/* Intro */}
         <div className="animate-fade-up delay-1">
@@ -110,7 +109,7 @@ export default function HandoffPage() {
                   cy="28"
                   r="24"
                   fill="none"
-                  stroke={allReady ? "#00A651" : "#2563EB"}
+                  stroke={allReady ? "#00A651" : "#1E7BC8"}
                   strokeWidth="5"
                   strokeLinecap="round"
                   strokeDasharray={`${progress * 1.508} 150.8`}
@@ -192,19 +191,18 @@ export default function HandoffPage() {
           </div>
         )}
 
-        {/* CTA */}
-        <div className="animate-fade-up delay-5 pb-2">
-          <Button href="/handoff/review" disabled={!allReady}>
-            Continue to Review
-            <ChevronRight size={16} />
-          </Button>
-          {!allReady && (
-            <p className="text-center text-[0.625rem] text-placeholder font-semibold mt-2">
-              Upload all documents to continue
-            </p>
-          )}
-        </div>
       </ScreenContent>
+      <StickyFooter>
+        <Button href="/handoff/review" disabled={!allReady}>
+          Continue to Review
+          <ChevronRight size={16} />
+        </Button>
+        {!allReady && (
+          <p className="text-center text-[0.625rem] text-placeholder font-semibold mt-2">
+            Upload all documents to continue
+          </p>
+        )}
+      </StickyFooter>
     </AppShell>
   );
 }

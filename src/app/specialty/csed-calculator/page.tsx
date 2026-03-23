@@ -8,6 +8,8 @@ import {
   Badge,
   Button,
   FormInput,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { Calculator, Clock, Plus, Trash2, Info, AlertTriangle } from "lucide-react";
 

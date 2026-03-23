@@ -7,6 +7,8 @@ import {
   Card,
   Badge,
   Button,
+  SectionHeader,
+  ContextCard,
 } from "@/components/ui/shell";
 import { PauseCircle, ChevronDown, CheckCircle2, AlertTriangle, Clock, FileText, Info } from "lucide-react";
 
